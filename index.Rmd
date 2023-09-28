@@ -14,4 +14,4 @@ output:
 I am interested in exploring data related to Russian National Security and 
 Counter-Insurgency. I would like to find a data-set related to this in some
 capacity. One further theme which I'm interested in is 
-Gazprom and the impact of turning off the gas taps on European foreign policy. 
+Gazprom and the impact of turning off the gas taps on European foreign policy.
