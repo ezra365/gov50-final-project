@@ -16,3 +16,32 @@ Counter-Insurgency. I would like to find a data-set related to this in some
 capacity. One further theme which I'm interested in is 
 Gazprom and the impact that turning off the gas taps has on European foreign 
 policy.
+
+## Milestone 2 - dataset proposal and hypothesis
+
+What is the relationship between the number of diplomatic contacts between 
+countries, the volume of trade they do, and the likelihood of going to war with 
+each other? This study will unpack this question using three different datasets
+from the ‘correlates of war’ collection: the Diplomatic Exchange data set, the 
+Trade dataset, and the Militarized Interstate Disputes dataset. The codebook for
+each outlines that a consistent notation of state ID numbers are used across all
+the datasets, meaning that I will be able to merge all 3 into a single dataset.
+In doing so, I plan to explore how the number of diplomatic contacts between 
+states influences both the volume of trade and the likelihood of interstate war
+between recognised countries. I will not have to filter out countries with no 
+disputes by virtue of the fact that the interstate war dataset does not measure
+conflict in binary terms (0 = no war, 1 = war), but rather measures it through a spectrum of ‘threats’, ‘display of force’, and ‘application of force’. This 
+therefore allows me to measure the relationship between diplomatic personnel and
+the likelihood of war, even in cases where full-scale kinetic warfare did not 
+occur. My initial hypothesis, or H(0), is that as the number of diplomatic 
+personnel and contacts increases between states, so does the volume of trade, 
+and the likelihood of war falls accordingly. This is because diplomacy is 
+usually considered to be a sign of mutual recognition, and disputes between 
+states necessitates that either country does not recognise some aspect of the 
+other. However, my alternative hypothesis (H1) suggests that there could be a 
+slight ‘survivors bias’ to this case, and that an increase in diplomatic 
+personnel between states may actually be an indication of deteriorating 
+relations. In this sense, as diplomacy ramps up, perhaps the likelihood of war
+does too. Overall, I aim to understand through this study whether diplomacy has historically served as a useful peacekeeping tool, or whether it is perhaps an 
+outdated practice – and in which case we ought to consider new political means 
+to maintain peace. 
