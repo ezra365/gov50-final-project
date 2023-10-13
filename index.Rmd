@@ -8,15 +8,6 @@ output:
 ---
 
 
-
-## Project thoughts
-
-I am interested in exploring data related to Russian National Security and 
-Counter-Insurgency. I would like to find a data-set related to this in some
-capacity. One further theme which I'm interested in is 
-Gazprom and the impact that turning off the gas taps has on European foreign 
-policy.
-
 ## Milestone 2 - dataset proposal and hypothesis
 
 What is the relationship between the number of diplomatic contacts between 
