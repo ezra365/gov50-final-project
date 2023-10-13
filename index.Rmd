@@ -7,7 +7,6 @@ output:
     self_contained: false
 ---
 
-
 ## Milestone 2 - dataset proposal and hypothesis
 
 What is the relationship between the number of diplomatic contacts between 
