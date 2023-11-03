@@ -1,11 +1,19 @@
 ---
 title: "Gov 50 Final Project"
 author: "Ezra Sharpe"
-description: "My final project"
+description: "Final project"
 output:
   distill::distill_article:
     self_contained: false
 ---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(ggplot2)
+
+```
 
 ## Milestone 2 - dataset proposal and hypothesis
 
@@ -35,3 +43,42 @@ relations. In this sense, as diplomacy ramps up, perhaps the likelihood of war
 does too. Overall, I aim to understand through this study whether diplomacy has historically served as a useful peacekeeping tool, or whether it is perhaps an 
 outdated practice – and in which case we ought to consider new political means 
 to maintain peace. 
+
+## Milestone 3
+
+Apologies, my data has changed significantly because the above was too complicated.
+I tried and it was too much of a headache. We're now looking at a dataset on foreign gifts donated to US educational institutions. We will be looking at how gifts vary by donors, geographies, size, and school. 
+
+The first visualisation I want to make should be a reflection of the size of the top 20 total foreign donations recieved by schools in the US.
+
+```{r}
+
+
+top_20_schools <- Foreign_Gifts_All_gifts_dataset |>
+  rename(School_Name = `School Name`, Donation_Amount = `Amount`) |>
+  group_by(School_Name) |>
+  summarize(Total_Donations = sum(as.numeric(gsub('[$,]', '', Donation_Amount))) / 1000000000) %>%
+  arrange(desc(Total_Donations)) %>%
+  top_n(20)
+
+top_20_schools
+
+```
+
+This is now the top 20 total recipients expressed in billions. Let's make a graph.
+
+```{r}
+
+bar_chart <- ggplot(top_20_schools, aes(x = reorder(School_Name, -Total_Donations), y = Total_Donations)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Top 20 Schools by Total Donation Amount (in Billions USD)",
+       x = "School Name",
+       y = "Total Donation Amount (Billions USD)") +
+  theme(axis.text.x = element_text(angle = 70, hjust = 1))
+
+print(bar_chart)
+
+```
+
+
+
