@@ -12,7 +12,7 @@ library(tidyverse)
 library(dplyr)
 library(readr)
 library(ggplot2)
-
+foreign_gifts <- read_csv("foreign_gifts.csv")
 ```
 
 ## Milestone 2 - dataset proposal and hypothesis
@@ -54,11 +54,11 @@ The first visualisation I want to make should be a reflection of the size of the
 ```{r}
 
 
-top_20_schools <- Foreign_Gifts_All_gifts_dataset |>
+top_20_schools <- foreign_gifts |>
   rename(School_Name = `School Name`, Donation_Amount = `Amount`) |>
   group_by(School_Name) |>
-  summarize(Total_Donations = sum(as.numeric(gsub('[$,]', '', Donation_Amount))) / 1000000000) %>%
-  arrange(desc(Total_Donations)) %>%
+  summarize(Total_Donations = sum(as.numeric(gsub('[$,]', '', Donation_Amount))) / 1000000000) |>
+  arrange(desc(Total_Donations)) |>
   top_n(20)
 
 top_20_schools
