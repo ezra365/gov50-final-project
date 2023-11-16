@@ -80,5 +80,70 @@ print(bar_chart)
 
 ```
 
+## Milestone 4
 
+In this analysis, I want to find out if there are any significant differences in 
+the methods of donation between the top 5 country donors. The first thing I need
+to do is to group the data by the top 5 countries.
+
+```{r}
+
+country_donors <- foreign_gifts |>
+rename(Donor_Country = `Attribution Country`, Donation_Amount = `Amount`, Transaction_Method = `Transaction Type`) |>
+group_by(Donor_Country) |>
+summarize(Total_Donations = sum(as.numeric(gsub('[$,]', '', Donation_Amount)) / 1000000000)) |>
+  arrange(desc(Total_Donations)) |>
+  top_n(5)
+  
+country_donors
+
+```
+
+Great, so we know that the top 5 countries donating to US colleges are Qatar, 
+England, Canada, China, and Saudi Arabia. I'm now going to filter the data to 
+these 5 countries and then group the data by the transaction type. 
+
+```{r}
+
+foreign_gifts$Amount <- as.numeric(gsub("[^0-9.]", "", foreign_gifts$Amount))
+
+countries_of_interest <- c("QATAR", "ENGLAND", "CANADA", "CHINA", "SAUDI ARABIA")
+
+filtered_data <- foreign_gifts |>
+  filter(`Attribution Country` %in% countries_of_interest)
+
+donation_type <- filtered_data |>
+  group_by(`Transaction Type`, `Attribution Country`) |>
+  summarize(total_amount = sum(Amount)/1000000000) 
+
+donation_type
+
+```
+
+Great, so I now have a table which shows us the top 5 countries, each of their 
+donations (in $bn), and the transaction type. Now I want to make a plot which
+shows the top 5 countries, their donation volume, and the proportion each
+transaction type makes up.
+
+```{r}
+# Create bar chart
+donation_bar <- ggplot(data = donation_type, 
+                       mapping = aes(x = `Attribution Country`, y = `total_amount`, fill = `Transaction Type`)) +
+  geom_bar(stat = "identity", position = "stack") +
+  labs(title = "Proportion of Transaction Types for Top 5 Countries",
+       x = "Country",
+       y = "Total Donation (in billion USD)") +
+  scale_fill_manual(values = c("Gift" = "blue", "Restricted Gift" = "purple", "Contract" = "red", "Restricted Contract" = "yellow"))
+
+donation_bar
+
+```
+
+From our analysis table and bar chart, there are a few key takeaways we can 
+make. Firstly, we know that Qatar is the largest national donor to US colleges.
+Secondly, for all of the top 5 donor countries except Canada, contracts are the
+most commonly used transaction type. Rather than donating money through 
+contracts, Canada prefers to give money through gifts, whilst Qatar 
+(the largest) gives very little gifts as a proportion of its total donations, 
+with no restricted gifts at all. 
 

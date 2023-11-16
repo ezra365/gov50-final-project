@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["foreign_gifts.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/index_files.Rproj","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["foreign_gifts.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/index_files.Rproj","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1522,7 +1522,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readr.tidyverse.org'>readr</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
-<span><span class='va'>foreign_gifts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"foreign_gifts.csv"</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>foreign_gifts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/readr/man/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"foreign_gifts.csv"</span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <h2 id="milestone-2---dataset-proposal-and-hypothesis">Milestone 2 - dataset proposal and hypothesis</h2>
@@ -1559,11 +1559,11 @@ I tried and it was too much of a headache. We’re now looking at a dataset on f
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>top_20_schools</span> <span class='op'>&lt;-</span> <span class='va'>foreign_gifts</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>School_Name <span class='op'>=</span> <span class='va'>`School Name`</span>, Donation_Amount <span class='op'>=</span> <span class='va'>`Amount`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>School_Name</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>Total_Donations <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>'[$,]'</span>, <span class='st'>''</span>, <span class='va'>Donation_Amount</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>/</span> <span class='fl'>1000000000</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Total_Donations</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/top_n.html'>top_n</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/rename.html'>rename</a></span><span class='op'>(</span>School_Name <span class='op'>=</span> <span class='va'>`School Name`</span>, Donation_Amount <span class='op'>=</span> <span class='va'>`Amount`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>School_Name</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarize</a></span><span class='op'>(</span>Total_Donations <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>'[$,]'</span>, <span class='st'>''</span>, <span class='va'>Donation_Amount</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>/</span> <span class='fl'>1000000000</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Total_Donations</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/top_n.html'>top_n</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>top_20_schools</span></span></code></pre>
 </div>
@@ -1594,18 +1594,111 @@ I tried and it was too much of a headache. We’re now looking at a dataset on f
 <p>This is now the top 20 total recipients expressed in billions. Let’s make a graph.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>bar_chart</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>top_20_schools</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>School_Name</span>, <span class='op'>-</span><span class='va'>Total_Donations</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>Total_Donations</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span>, fill <span class='op'>=</span> <span class='st'>"skyblue"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Top 20 Schools by Total Donation Amount (in Billions USD)"</span>,</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>bar_chart</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>top_20_schools</span>, <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>School_Name</span>, <span class='op'>-</span><span class='va'>Total_Donations</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>Total_Donations</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span>, fill <span class='op'>=</span> <span class='st'>"skyblue"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Top 20 Schools by Total Donation Amount (in Billions USD)"</span>,</span>
 <span>       x <span class='op'>=</span> <span class='st'>"School Name"</span>,</span>
 <span>       y <span class='op'>=</span> <span class='st'>"Total Donation Amount (Billions USD)"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>70</span>, hjust <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>70</span>, hjust <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>bar_chart</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h2 id="milestone-4">Milestone 4</h2>
+<p>In this analysis, I want to find out if there are any significant differences in
+the methods of donation between the top 5 country donors. The first thing I need
+to do is to group the data by the top 5 countries.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>country_donors</span> <span class='op'>&lt;-</span> <span class='va'>foreign_gifts</span> <span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/rename.html'>rename</a></span><span class='op'>(</span>Donor_Country <span class='op'>=</span> <span class='va'>`Attribution Country`</span>, Donation_Amount <span class='op'>=</span> <span class='va'>`Amount`</span>, Transaction_Method <span class='op'>=</span> <span class='va'>`Transaction Type`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Donor_Country</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarize</a></span><span class='op'>(</span>Total_Donations <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>'[$,]'</span>, <span class='st'>''</span>, <span class='va'>Donation_Amount</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>/</span> <span class='fl'>1000000000</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Total_Donations</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/top_n.html'>top_n</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span></span>
+<span>  </span>
+<span><span class='va'>country_donors</span></span></code></pre>
+</div>
+<pre><code># A tibble: 5 × 2
+  Donor_Country Total_Donations
+  &lt;chr&gt;                   &lt;dbl&gt;
+1 QATAR                    4.95
+2 ENGLAND                  3.57
+3 CANADA                   2.93
+4 CHINA                    2.70
+5 SAUDI ARABIA             2.64</code></pre>
+</div>
+<p>Great, so we know that the top 5 countries donating to US colleges are Qatar,
+England, Canada, China, and Saudi Arabia. I’m now going to filter the data to
+these 5 countries and then group the data by the transaction type.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>foreign_gifts</span><span class='op'>$</span><span class='va'>Amount</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>"[^0-9.]"</span>, <span class='st'>""</span>, <span class='va'>foreign_gifts</span><span class='op'>$</span><span class='va'>Amount</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>countries_of_interest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QATAR"</span>, <span class='st'>"ENGLAND"</span>, <span class='st'>"CANADA"</span>, <span class='st'>"CHINA"</span>, <span class='st'>"SAUDI ARABIA"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>filtered_data</span> <span class='op'>&lt;-</span> <span class='va'>foreign_gifts</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>`Attribution Country`</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>countries_of_interest</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>donation_type</span> <span class='op'>&lt;-</span> <span class='va'>filtered_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>`Transaction Type`</span>, <span class='va'>`Attribution Country`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarize</a></span><span class='op'>(</span>total_amount <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>Amount</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>1000000000</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='va'>donation_type</span></span></code></pre>
+</div>
+<pre><code># A tibble: 20 × 3
+# Groups:   Transaction Type [4]
+   `Transaction Type`  `Attribution Country` total_amount
+   &lt;chr&gt;               &lt;chr&gt;                        &lt;dbl&gt;
+ 1 Contract            CANADA                     1.04   
+ 2 Contract            CHINA                      1.65   
+ 3 Contract            ENGLAND                    2.14   
+ 4 Contract            QATAR                      4.08   
+ 5 Contract            SAUDI ARABIA               1.77   
+ 6 Gift                CANADA                     1.44   
+ 7 Gift                CHINA                      0.710  
+ 8 Gift                ENGLAND                    1.17   
+ 9 Gift                QATAR                      0.147  
+10 Gift                SAUDI ARABIA               0.432  
+11 Restricted Contract CANADA                     0.401  
+12 Restricted Contract CHINA                      0.217  
+13 Restricted Contract ENGLAND                    0.174  
+14 Restricted Contract QATAR                      0.728  
+15 Restricted Contract SAUDI ARABIA               0.363  
+16 Restricted Gift     CANADA                     0.0544 
+17 Restricted Gift     CHINA                      0.115  
+18 Restricted Gift     ENGLAND                    0.0826 
+19 Restricted Gift     QATAR                      0.00141
+20 Restricted Gift     SAUDI ARABIA               0.0763 </code></pre>
+</div>
+<p>Great, so I now have a table which shows us the top 5 countries, each of their
+donations (in $bn), and the transaction type. Now I want to make a plot which
+shows the top 5 countries, their donation volume, and the proportion each
+transaction type makes up.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Create bar chart</span></span>
+<span><span class='va'>donation_bar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>donation_type</span>, </span>
+<span>                       mapping <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>`Attribution Country`</span>, y <span class='op'>=</span> <span class='va'>`total_amount`</span>, fill <span class='op'>=</span> <span class='va'>`Transaction Type`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span>, position <span class='op'>=</span> <span class='st'>"stack"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Proportion of Transaction Types for Top 5 Countries"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"Country"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Total Donation (in billion USD)"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Gift"</span> <span class='op'>=</span> <span class='st'>"blue"</span>, <span class='st'>"Restricted Gift"</span> <span class='op'>=</span> <span class='st'>"purple"</span>, <span class='st'>"Contract"</span> <span class='op'>=</span> <span class='st'>"red"</span>, <span class='st'>"Restricted Contract"</span> <span class='op'>=</span> <span class='st'>"yellow"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>donation_bar</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+</div>
+<p>From our analysis table and bar chart, there are a few key takeaways we can
+make. Firstly, we know that Qatar is the largest national donor to US colleges.
+Secondly, for all of the top 5 donor countries except Canada, contracts are the
+most commonly used transaction type. Rather than donating money through
+contracts, Canada prefers to give money through gifts, whilst Qatar
+(the largest) gives very little gifts as a proportion of its total donations,
+with no restricted gifts at all.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
