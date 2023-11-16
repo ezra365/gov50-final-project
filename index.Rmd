@@ -135,7 +135,7 @@ donation_bar <- ggplot(data = donation_type,
        y = "Total Donation (in billion USD)") +
   scale_fill_manual(values = c("Gift" = "blue", "Restricted Gift" = "purple", "Contract" = "red", "Restricted Contract" = "yellow"))
 
-donation_bar
+print(donation_bar)
 
 ```
 
