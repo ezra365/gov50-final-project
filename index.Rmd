@@ -12,7 +12,6 @@ library(tidyverse)
 library(dplyr)
 library(readr)
 library(ggplot2)
-
 ```
 
 ## Introduction 
@@ -92,24 +91,41 @@ World Bank, and the natural gas production data is survey data sourced from the
 IEA. Please also note that when collating this dataset, I standardized all units
 for production and imports into billion cubic metres (bcm). 
 
+Below is a summary of the dependant variables in this dataset. 
 
+```{r} 
 
-
-
-
-
-
-
-```{r}
+## Firstly, I need to clean the dataset and make sure all variables are correct
 
 gazprom_data <- read_csv("Gazprom_data.csv")
 
-gazprom_data <- subset(gazprom_data, select = c(Year, Country, Production, Gazprom_Imports, Natural_Gas_Reliance, Total_Reliance, Difference_in_Reliance, Geographic_Status, Military_Alliance, Control_of_Corruption))
+## There were some empty columns, so this is subsetting to the one's we want
 
-gazprom_data$Natural_Gas_Reliance <- as.numeric(sub("%", "", gazprom_data$Natural_Gas_Reliance))/100
-gazprom_data$Total_Reliance <- as.numeric(sub("%", "", gazprom_data$Total_Reliance))/100
-gazprom_data$Difference_in_Reliance <- as.numeric(sub("%", "", gazprom_data$Difference_in_Reliance))/100
+gazprom_data <- subset(gazprom_data, select = c(Year, Country, Production, 
+Gazprom_Imports, Natural_Gas_Reliance, Total_Reliance, Difference_in_Reliance, 
+Geographic_Status, Military_Alliance, Control_of_Corruption))
 
-view(gazprom_data)
+## In this section I am converting the % variables into decimal integers
+
+gazprom_data$Natural_Gas_Reliance <- as.numeric(sub("%", "", 
+gazprom_data$Natural_Gas_Reliance))/100
+
+gazprom_data$Total_Reliance <- as.numeric(sub("%", "", 
+gazprom_data$Total_Reliance))/100
+
+gazprom_data$Difference_in_Reliance <- as.numeric(sub("%", "", 
+gazprom_data$Difference_in_Reliance))/100
+
+## This is a summary plot for the dependent natural gas reliance variable
+
+ggplot(gazprom_data, aes(x = Year, y = Natural_Gas_Reliance, group = Country, 
+                         color = Country)) +
+  geom_line(data = gazprom_data[!is.na(gazprom_data$Natural_Gas_Reliance), ]) +
+  labs(title = "Reliance on Russian Natural Gas Over Time",
+       x = "Year",
+       y = "Natural Gas Reliance (%)",
+       color = "Country") +
+   scale_y_continuous(labels = scales::percent_format(scale = 100)) + 
+  theme_minimal()
 ```
 
