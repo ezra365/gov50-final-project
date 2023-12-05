@@ -118,7 +118,7 @@ gazprom_data$Difference_in_Reliance))/100
 
 ## This is a summary plot for the dependent natural gas reliance variable
 
-ggplot(gazprom_data, aes(x = Year, y = Natural_Gas_Reliance, group = Country, 
+gas_reliance_plot <- ggplot(gazprom_data, aes(x = Year, y = Natural_Gas_Reliance, group = Country, 
                          color = Country)) +
   geom_line(data = gazprom_data[!is.na(gazprom_data$Natural_Gas_Reliance), ]) +
   labs(title = "Reliance on Russian Natural Gas Over Time",
@@ -127,5 +127,8 @@ ggplot(gazprom_data, aes(x = Year, y = Natural_Gas_Reliance, group = Country,
        color = "Country") +
    scale_y_continuous(labels = scales::percent_format(scale = 100)) + 
   theme_minimal()
+
+print(gas_reliance_plot)
+
 ```
 
