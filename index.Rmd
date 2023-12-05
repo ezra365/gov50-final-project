@@ -83,13 +83,15 @@ combining Total Energy Supply (TES), import data, and production data to output
 a percentage integer representing reliance on Russian fuel. The natural gas
 reliance variable denotes the reliance on Russian natural gas, whilst the total
 reliance variable denotes the reliance on all Russian fossil fuels (including 
-oil and coal). It is also worth noting that Russian natural gas exports are
-equal to Gazprom exports, since Gazprom has monopoly control over the Russian 
-natural gas export industry. With regards to some of the key independent
-variables, the control over corruption index is a statistical model run by The 
-World Bank, and the natural gas production data is survey data sourced from the
-IEA. Please also note that when collating this dataset, I standardized all units
-for production and imports into billion cubic metres (bcm). 
+oil and coal). Note that there are missing values, such as for reliance in 
+Belarus where data was not available. It is also worth noting that Russian 
+natural gas exports are equal to Gazprom exports, since Gazprom has monopoly 
+control over the Russian natural gas export industry. With regards to some of 
+the key independent variables, the control over corruption index is a
+statistical model run by The World Bank, and the natural gas production data is
+survey data sourced from the IEA. Please also note that when collating this
+dataset, I standardized all units for production and imports into billion cubic
+metres (bcm). A codebook for this dataset is available upon request!
 
 Below is a summary of the dependant variables in this dataset. 
 
@@ -116,19 +118,72 @@ gazprom_data$Total_Reliance))/100
 gazprom_data$Difference_in_Reliance <- as.numeric(sub("%", "", 
 gazprom_data$Difference_in_Reliance))/100
 
+```
+
+```{r}
+
 ## This is a summary plot for the dependent natural gas reliance variable
 
-gas_reliance_plot <- ggplot(gazprom_data, aes(x = Year, y = Natural_Gas_Reliance, group = Country, 
-                         color = Country)) +
-  geom_line(data = gazprom_data[!is.na(gazprom_data$Natural_Gas_Reliance), ]) +
-  labs(title = "Reliance on Russian Natural Gas Over Time",
-       x = "Year",
-       y = "Natural Gas Reliance (%)",
-       color = "Country") +
-   scale_y_continuous(labels = scales::percent_format(scale = 100)) + 
-  theme_minimal()
+distinct_colors <- c("#1f78b4", "#33a02c", "#e31a1c", "#ff7f00", "#6a3d9a", 
+"#b15928", "#a6cee3", "#fdbf6f", "#ffed6f", "#fb9a99", "#cab2d6")
+
+## I'm using distinct colour codes above to make sure the plot is clear
+
+gas_reliance_plot <- ggplot(gazprom_data, aes(x = Year, y = Natural_Gas_Reliance,
+group = Country, color = Country)) +
+  
+geom_line(data = gazprom_data[!is.na(gazprom_data$Natural_Gas_Reliance), ]) +
+labs(title = "Reliance on Russian Natural Gas Over Time",
+x = "Year",
+y = "Natural Gas Reliance (%)",
+color = "Country") +
+scale_y_continuous(labels = scales::percent_format(scale = 100)) + 
+scale_color_manual(values = distinct_colors) +
+theme_minimal()
 
 print(gas_reliance_plot)
+
+```
+
+```{r}
+
+## This is a summary plot for the dependent Gazprom imports variable
+
+distinct_colors <- c("#1f78b4", "#33a02c", "#e31a1c", "#ff7f00", "#6a3d9a",
+"#b15928", "#a6cee3", "#fdbf6f", "#ffed6f", "#fb9a99", "#cab2d6", "#8dd3c7")
+
+imports_plot <- ggplot(gazprom_data, aes(x = Year, y = Gazprom_Imports, group =
+Country, color = Country)) +
+geom_line(data = gazprom_data[!is.na(gazprom_data$Gazprom_Imports), ]) +
+labs(title = "Gazprom Imports Over Time",
+x = "Year",
+y = "Gazprom Imports (bcm)",
+color = "Country") +
+scale_color_manual(values = distinct_colors) +
+theme_minimal()
+
+print(imports_plot)
+
+```
+
+```{r}
+## This is a summary plot for the dependent Total Reliance variable
+
+distinct_colors <- c("#1f78b4", "#33a02c", "#e31a1c", "#ff7f00", "#6a3d9a",
+"#b15928", "#a6cee3", "#fdbf6f", "#ffed6f", "#fb9a99")
+
+total_reliance_plot <- ggplot(gazprom_data, aes(x = Year, y = Total_Reliance, 
+group = Country, color = Country)) +
+geom_line(data = gazprom_data[!is.na(gazprom_data$Total_Reliance), ]) +
+labs(title = "Total Reliance on Russian Fossil Fuels Over Time",
+x = "Year",
+y = "Total Reliance (%)",
+color = "Country") +
+scale_y_continuous(labels = scales::percent_format(scale = 100)) + 
+scale_color_manual(values = distinct_colors) +
+theme_minimal()
+
+print(total_reliance_plot)
 
 ```
 
