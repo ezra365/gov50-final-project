@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["foreign_gifts.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/index_files.Rproj","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["foreign_gifts.csv","gazprom_data.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/index_files.Rproj","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1521,184 +1521,119 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readr.tidyverse.org'>readr</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
-<span><span class='va'>foreign_gifts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/readr/man/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"foreign_gifts.csv"</span><span class='op'>)</span></span></code></pre>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
-<h2 id="milestone-2---dataset-proposal-and-hypothesis">Milestone 2 - dataset proposal and hypothesis</h2>
-<p>What is the relationship between the number of diplomatic contacts between
-countries, the volume of trade they do, and the likelihood of going to war with
-each other? This study will unpack this question using three different datasets
-from the ‘correlates of war’ collection: the Diplomatic Exchange data set, the
-Trade dataset, and the Militarized Interstate Disputes dataset. The codebook for
-each outlines that a consistent notation of state ID numbers are used across all
-the datasets, meaning that I will be able to merge all 3 into a single dataset.
-In doing so, I plan to explore how the number of diplomatic contacts between
-states influences both the volume of trade and the likelihood of interstate war
-between recognised countries. I will not have to filter out countries with no
-disputes by virtue of the fact that the interstate war dataset does not measure
-conflict in binary terms (0 = no war, 1 = war), but rather measures it through a spectrum of ‘threats’, ‘display of force’, and ‘application of force’. This
-therefore allows me to measure the relationship between diplomatic personnel and
-the likelihood of war, even in cases where full-scale kinetic warfare did not
-occur. My initial hypothesis, or H(0), is that as the number of diplomatic
-personnel and contacts increases between states, so does the volume of trade,
-and the likelihood of war falls accordingly. This is because diplomacy is
-usually considered to be a sign of mutual recognition, and disputes between
-states necessitates that either country does not recognise some aspect of the
-other. However, my alternative hypothesis (H1) suggests that there could be a
-slight ‘survivors bias’ to this case, and that an increase in diplomatic
-personnel between states may actually be an indication of deteriorating
-relations. In this sense, as diplomacy ramps up, perhaps the likelihood of war
-does too. Overall, I aim to understand through this study whether diplomacy has historically served as a useful peacekeeping tool, or whether it is perhaps an
-outdated practice – and in which case we ought to consider new political means
-to maintain peace.</p>
-<h2 id="milestone-3">Milestone 3</h2>
-<p>Apologies, my data has changed significantly because the above was too complicated.
-I tried and it was too much of a headache. We’re now looking at a dataset on foreign gifts donated to US educational institutions. We will be looking at how gifts vary by donors, geographies, size, and school.</p>
-<p>The first visualisation I want to make should be a reflection of the size of the top 20 total foreign donations recieved by schools in the US.</p>
+<h2 id="introduction">Introduction</h2>
+<p>What are the key relationships which structure European states’ dependency on
+Gazprom’s natural gas exports?</p>
+<p>This study will unpack this question using an originally made ‘Gazprom
+Dependency’ dataset, which will facilitate an analysis of what kinds of
+variables influence the relationships Gazprom has with European states. Within
+this broad umbrella question, there are also a range of sub-questions which this
+project aims to confront; does reliance on Gazprom natural gas vary between FSU
+countries and non-FSU countries? Over which years are these relationships most
+pronounced? Does reliance on Gazprom natural gas vary between NATO and non-NATO
+member states? What are the general trends in changing natural gas production
+levels over time, and what events could be potential drivers of this change?</p>
+<p>Studying Gazprom in close detail is an important research agenda, not least
+because energy has been the main denominator in European states’ (in)ability to
+respond to Russian aggressions in the 20th century. For instance, Stern’s (2005)
+‘The Future of Russian Gas and Gazprom’ outlined almost two decades ago the
+importance of understanding energy dependency in Europe – and this certainly has
+a feeling of foresight given how events transpired ever since in 2014 and 2022.
+The research in this context is mainly interesting because of the diversity of
+variables available to analyse within the novel dataset and the broad temporal
+spectrum, with data ranging from 1991 to 2020. Overall, the primary aim of this
+study is to understand which political, economic, and militaristic factors
+underpin the different relationships European states have with Gazprom, and why
+these trends may have changed over time. In doing so, we might be able to better
+understand how European states can strive for increased energy independence in
+the future and divest themselves from Gazprom and the Russian state.</p>
+<p>My null hypothesis, or H(0), is that domestic natural gas production levels,
+military alliances, and corruption levels are not statistically significant
+factors structuring the relationship between Gazprom and client states (further
+discussion of significance levels to come). By posing this as a null hypothesis,
+if any one of these relationships are found to be statistically significant, we
+can reject the null hypothesis and conduct further analysis on causality. With
+regards to the relative significance of each variable, I would hypothesize that
+domestic natural gas production rates have the most statistically significant
+inverse relationship with Gazprom reliance. That is to say that as domestic
+natural gas production increases, I would predict some sort of proportional
+decrease in reliance on Gazprom.</p>
+<h2 id="data-summary">Data Summary</h2>
+<p>I constructed the ‘Gazprom Reliance’ dataset from a variety of different
+publicly available sources. This dataset contains variables related to Gazprom’s
+energy diplomacy with 12 different European states, specifically in relation to
+natural gas. It combines data gleaned from Gazprom internal reporting, the
+International Energy Agency (IEA), the World Bank, US Energy Information
+Administration (EIA), and academic literature (Stern 2005). Ten different
+variables have been included in this dataset: year, country, production, Gazprom
+imports, natural gas reliance, total energy reliance, difference in reliance,
+geographic status, military alliance, and control of corruption. Given my
+research question, the dependent variables are ‘Gazprom_Imports’,
+‘Natural_Gas_Reliance’,and ‘Total Reliance’. Though this dataframe does not
+exactly match any of the research design definitions, it is closest in nature to
+a ‘differences in differences’ design because 1) it measures change over time,
+2) it is observational insofar that we are not controlling any of the changes,
+and 3) it measures difference across different kinds of ‘interventions’ (e.g.,
+NATO membership, corruption levels).</p>
+<p>All the variables included in this dataset were measured in unique ways. Gazprom
+import data was sourced from Gazprom’s annual reports, and thus is largely
+survey-driven data. The other two dependant variables (natural gas reliance and
+total reliance) are from an IEA dataset which uses statistical modelling
+combining Total Energy Supply (TES), import data, and production data to output
+a percentage integer representing reliance on Russian fuel. The natural gas
+reliance variable denotes the reliance on Russian natural gas, whilst the total
+reliance variable denotes the reliance on all Russian fossil fuels (including
+oil and coal). It is also worth noting that Russian natural gas exports are
+equal to Gazprom exports, since Gazprom has monopoly control over the Russian
+natural gas export industry. With regards to some of the key independent
+variables, the control over corruption index is a statistical model run by The
+World Bank, and the natural gas production data is survey data sourced from the
+IEA. Please also note that when collating this dataset, I standardized all units
+for production and imports into billion cubic metres (bcm).</p>
+<p>Below is a summary of the dependant variables in this dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>top_20_schools</span> <span class='op'>&lt;-</span> <span class='va'>foreign_gifts</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/rename.html'>rename</a></span><span class='op'>(</span>School_Name <span class='op'>=</span> <span class='va'>`School Name`</span>, Donation_Amount <span class='op'>=</span> <span class='va'>`Amount`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>School_Name</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarize</a></span><span class='op'>(</span>Total_Donations <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>'[$,]'</span>, <span class='st'>''</span>, <span class='va'>Donation_Amount</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>/</span> <span class='fl'>1000000000</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Total_Donations</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/top_n.html'>top_n</a></span><span class='op'>(</span><span class='fl'>20</span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>## Firstly, I need to clean the dataset and make sure all variables are correct</span></span>
 <span></span>
-<span><span class='va'>top_20_schools</span></span></code></pre>
-</div>
-<pre><code># A tibble: 20 × 2
-   School_Name                                   Total_Donations
-   &lt;chr&gt;                                                   &lt;dbl&gt;
- 1 Carnegie Mellon University                              2.61 
- 2 Harvard University                                      2.57 
- 3 Cornell University                                      2.23 
- 4 Massachusetts Institute of Technology                   1.68 
- 5 University of Pennsylvania                              1.54 
- 6 Yale University                                         1.18 
- 7 Johns Hopkins University                                1.18 
- 8 Stanford University                                     1.14 
- 9 Georgetown University                                   1.12 
-10 University of Texas MD Anderson Cancer Center           0.951
-11 Columbia University in the City of New York             0.907
-12 Northwestern University                                 0.863
-13 Texas A&amp;M University                                    0.838
-14 Brigham Young University                                0.764
-15 New York University                                     0.755
-16 University of California, Berkeley                      0.710
-17 University of California, San Diego                     0.686
-18 University of Southern California                       0.662
-19 University of Chicago (The)                             0.648
-20 Duke University                                         0.646</code></pre>
-</div>
-<p>This is now the top 20 total recipients expressed in billions. Let’s make a graph.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>bar_chart</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>top_20_schools</span>, <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>School_Name</span>, <span class='op'>-</span><span class='va'>Total_Donations</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>Total_Donations</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span>, fill <span class='op'>=</span> <span class='st'>"skyblue"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Top 20 Schools by Total Donation Amount (in Billions USD)"</span>,</span>
-<span>       x <span class='op'>=</span> <span class='st'>"School Name"</span>,</span>
-<span>       y <span class='op'>=</span> <span class='st'>"Total Donation Amount (Billions USD)"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/element.html'>element_text</a></span><span class='op'>(</span>angle <span class='op'>=</span> <span class='fl'>70</span>, hjust <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>gazprom_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Gazprom_data.csv"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>bar_chart</span><span class='op'>)</span></span></code></pre>
-</div>
-<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
-</div>
-<h2 id="milestone-4">Milestone 4</h2>
-<p>In this analysis, I want to find out if there are any significant differences in
-the methods of donation between the top 5 country donors. The first thing I need
-to do is to group the data by the top 5 countries.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>country_donors</span> <span class='op'>&lt;-</span> <span class='va'>foreign_gifts</span> <span class='op'>|&gt;</span></span>
-<span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/rename.html'>rename</a></span><span class='op'>(</span>Donor_Country <span class='op'>=</span> <span class='va'>`Attribution Country`</span>, Donation_Amount <span class='op'>=</span> <span class='va'>`Amount`</span>, Transaction_Method <span class='op'>=</span> <span class='va'>`Transaction Type`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Donor_Country</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarize</a></span><span class='op'>(</span>Total_Donations <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>'[$,]'</span>, <span class='st'>''</span>, <span class='va'>Donation_Amount</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>/</span> <span class='fl'>1000000000</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Total_Donations</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/top_n.html'>top_n</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span></span>
-<span>  </span>
-<span><span class='va'>country_donors</span></span></code></pre>
-</div>
-<pre><code># A tibble: 5 × 2
-  Donor_Country Total_Donations
-  &lt;chr&gt;                   &lt;dbl&gt;
-1 QATAR                    4.95
-2 ENGLAND                  3.57
-3 CANADA                   2.93
-4 CHINA                    2.70
-5 SAUDI ARABIA             2.64</code></pre>
-</div>
-<p>Great, so we know that the top 5 countries donating to US colleges are Qatar,
-England, Canada, China, and Saudi Arabia. I’m now going to filter the data to
-these 5 countries and then group the data by the transaction type.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>foreign_gifts</span><span class='op'>$</span><span class='va'>Amount</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>gsub</a></span><span class='op'>(</span><span class='st'>"[^0-9.]"</span>, <span class='st'>""</span>, <span class='va'>foreign_gifts</span><span class='op'>$</span><span class='va'>Amount</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='co'>## There were some empty columns, so this is subsetting to the one's we want</span></span>
 <span></span>
-<span><span class='va'>countries_of_interest</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"QATAR"</span>, <span class='st'>"ENGLAND"</span>, <span class='st'>"CANADA"</span>, <span class='st'>"CHINA"</span>, <span class='st'>"SAUDI ARABIA"</span><span class='op'>)</span></span>
+<span><span class='va'>gazprom_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>gazprom_data</span>, select <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>Year</span>, <span class='va'>Country</span>, <span class='va'>Production</span>, </span>
+<span><span class='va'>Gazprom_Imports</span>, <span class='va'>Natural_Gas_Reliance</span>, <span class='va'>Total_Reliance</span>, <span class='va'>Difference_in_Reliance</span>, </span>
+<span><span class='va'>Geographic_Status</span>, <span class='va'>Military_Alliance</span>, <span class='va'>Control_of_Corruption</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>filtered_data</span> <span class='op'>&lt;-</span> <span class='va'>foreign_gifts</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>`Attribution Country`</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>countries_of_interest</span><span class='op'>)</span></span>
+<span><span class='co'>## In this section I am converting the % variables into decimal integers</span></span>
 <span></span>
-<span><span class='va'>donation_type</span> <span class='op'>&lt;-</span> <span class='va'>filtered_data</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>`Transaction Type`</span>, <span class='va'>`Attribution Country`</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarize</a></span><span class='op'>(</span>total_amount <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>Amount</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>1000000000</span><span class='op'>)</span> </span>
+<span><span class='va'>gazprom_data</span><span class='op'>$</span><span class='va'>Natural_Gas_Reliance</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>"%"</span>, <span class='st'>""</span>, </span>
+<span><span class='va'>gazprom_data</span><span class='op'>$</span><span class='va'>Natural_Gas_Reliance</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>100</span></span>
 <span></span>
-<span><span class='va'>donation_type</span></span></code></pre>
-</div>
-<pre><code># A tibble: 20 × 3
-# Groups:   Transaction Type [4]
-   `Transaction Type`  `Attribution Country` total_amount
-   &lt;chr&gt;               &lt;chr&gt;                        &lt;dbl&gt;
- 1 Contract            CANADA                     1.04   
- 2 Contract            CHINA                      1.65   
- 3 Contract            ENGLAND                    2.14   
- 4 Contract            QATAR                      4.08   
- 5 Contract            SAUDI ARABIA               1.77   
- 6 Gift                CANADA                     1.44   
- 7 Gift                CHINA                      0.710  
- 8 Gift                ENGLAND                    1.17   
- 9 Gift                QATAR                      0.147  
-10 Gift                SAUDI ARABIA               0.432  
-11 Restricted Contract CANADA                     0.401  
-12 Restricted Contract CHINA                      0.217  
-13 Restricted Contract ENGLAND                    0.174  
-14 Restricted Contract QATAR                      0.728  
-15 Restricted Contract SAUDI ARABIA               0.363  
-16 Restricted Gift     CANADA                     0.0544 
-17 Restricted Gift     CHINA                      0.115  
-18 Restricted Gift     ENGLAND                    0.0826 
-19 Restricted Gift     QATAR                      0.00141
-20 Restricted Gift     SAUDI ARABIA               0.0763 </code></pre>
-</div>
-<p>Great, so I now have a table which shows us the top 5 countries, each of their
-donations (in $bn), and the transaction type. Now I want to make a plot which
-shows the top 5 countries, their donation volume, and the proportion each
-transaction type makes up.</p>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Create bar chart</span></span>
-<span><span class='va'>donation_bar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>donation_type</span>, </span>
-<span>                       mapping <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>`Attribution Country`</span>, y <span class='op'>=</span> <span class='va'>`total_amount`</span>, fill <span class='op'>=</span> <span class='va'>`Transaction Type`</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span>, position <span class='op'>=</span> <span class='st'>"stack"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Proportion of Transaction Types for Top 5 Countries"</span>,</span>
-<span>       x <span class='op'>=</span> <span class='st'>"Country"</span>,</span>
-<span>       y <span class='op'>=</span> <span class='st'>"Total Donation (in billion USD)"</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/ggplot2/man/scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Gift"</span> <span class='op'>=</span> <span class='st'>"blue"</span>, <span class='st'>"Restricted Gift"</span> <span class='op'>=</span> <span class='st'>"purple"</span>, <span class='st'>"Contract"</span> <span class='op'>=</span> <span class='st'>"red"</span>, <span class='st'>"Restricted Contract"</span> <span class='op'>=</span> <span class='st'>"yellow"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>gazprom_data</span><span class='op'>$</span><span class='va'>Total_Reliance</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>"%"</span>, <span class='st'>""</span>, </span>
+<span><span class='va'>gazprom_data</span><span class='op'>$</span><span class='va'>Total_Reliance</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>100</span></span>
 <span></span>
-<span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>donation_bar</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>gazprom_data</span><span class='op'>$</span><span class='va'>Difference_in_Reliance</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>"%"</span>, <span class='st'>""</span>, </span>
+<span><span class='va'>gazprom_data</span><span class='op'>$</span><span class='va'>Difference_in_Reliance</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>100</span></span>
+<span></span>
+<span><span class='co'>## This is a summary plot for the dependent natural gas reliance variable</span></span>
+<span></span>
+<span><span class='va'>gas_reliance_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>gazprom_data</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Year</span>, y <span class='op'>=</span> <span class='va'>Natural_Gas_Reliance</span>, group <span class='op'>=</span> <span class='va'>Country</span>, </span>
+<span>                         color <span class='op'>=</span> <span class='va'>Country</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gazprom_data</span><span class='op'>[</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>gazprom_data</span><span class='op'>$</span><span class='va'>Natural_Gas_Reliance</span><span class='op'>)</span>, <span class='op'>]</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Reliance on Russian Natural Gas Over Time"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"Year"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Natural Gas Reliance (%)"</span>,</span>
+<span>       color <span class='op'>=</span> <span class='st'>"Country"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/percent_format.html'>percent_format</a></span><span class='op'>(</span>scale <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>gas_reliance_plot</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+<p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
-<p>From our analysis table and bar chart, there are a few key takeaways we can
-make. Firstly, we know that Qatar is the largest national donor to US colleges.
-Secondly, for all of the top 5 donor countries except Canada, contracts are the
-most commonly used transaction type. Rather than donating money through
-contracts, Canada prefers to give money through gifts, whilst Qatar
-(the largest) gives very little gifts as a proportion of its total donations,
-with no restricted gifts at all.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
