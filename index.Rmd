@@ -12,138 +12,62 @@ library(tidyverse)
 library(dplyr)
 library(readr)
 library(ggplot2)
-foreign_gifts <- read_csv("foreign_gifts.csv")
+
 ```
 
-## Milestone 2 - dataset proposal and hypothesis
+## Introduction
 
-What is the relationship between the number of diplomatic contacts between 
-countries, the volume of trade they do, and the likelihood of going to war with 
-each other? This study will unpack this question using three different datasets
-from the ‘correlates of war’ collection: the Diplomatic Exchange data set, the 
-Trade dataset, and the Militarized Interstate Disputes dataset. The codebook for
-each outlines that a consistent notation of state ID numbers are used across all
-the datasets, meaning that I will be able to merge all 3 into a single dataset.
-In doing so, I plan to explore how the number of diplomatic contacts between 
-states influences both the volume of trade and the likelihood of interstate war
-between recognised countries. I will not have to filter out countries with no 
-disputes by virtue of the fact that the interstate war dataset does not measure
-conflict in binary terms (0 = no war, 1 = war), but rather measures it through a spectrum of ‘threats’, ‘display of force’, and ‘application of force’. This 
-therefore allows me to measure the relationship between diplomatic personnel and
-the likelihood of war, even in cases where full-scale kinetic warfare did not 
-occur. My initial hypothesis, or H(0), is that as the number of diplomatic 
-personnel and contacts increases between states, so does the volume of trade, 
-and the likelihood of war falls accordingly. This is because diplomacy is 
-usually considered to be a sign of mutual recognition, and disputes between 
-states necessitates that either country does not recognise some aspect of the 
-other. However, my alternative hypothesis (H1) suggests that there could be a 
-slight ‘survivors bias’ to this case, and that an increase in diplomatic 
-personnel between states may actually be an indication of deteriorating 
-relations. In this sense, as diplomacy ramps up, perhaps the likelihood of war
-does too. Overall, I aim to understand through this study whether diplomacy has historically served as a useful peacekeeping tool, or whether it is perhaps an 
-outdated practice – and in which case we ought to consider new political means 
-to maintain peace. 
+What are the key relationships which structure European states’ dependency on 
+Gazprom’s natural gas exports?
 
-## Milestone 3
+This study will unpack this question using an originally made ‘Gazprom 
+Dependency’ dataset, which will facilitate an analysis of what kinds of 
+variables influence the relationships Gazprom has with European states. Within 
+this broad umbrella question, there are also a range of sub-questions which this
+project aims to confront; does reliance on Gazprom natural gas vary between FSU 
+countries and non-FSU countries? Over which years are these relationships most 
+pronounced? Does reliance on Gazprom natural gas vary between NATO and non-NATO
+member states? What are the general trends in changing natural gas production 
+levels over time, and what events could be potential drivers of this change? 
 
-Apologies, my data has changed significantly because the above was too complicated.
-I tried and it was too much of a headache. We're now looking at a dataset on foreign gifts donated to US educational institutions. We will be looking at how gifts vary by donors, geographies, size, and school. 
+Studying Gazprom in close detail is an important research agenda, not least 
+because energy has been the main denominator in European states’ (in)ability to
+respond to Russian aggressions in the 20th century. For instance, Stern’s (2005)
+‘The Future of Russian Gas and Gazprom’ outlined almost two decades ago the 
+importance of understanding energy dependency in Europe – and this certainly has
+a feeling of foresight given how events transpired ever since in 2014 and 2022.
+The research in this context is mainly interesting because of the diversity of 
+variables available to analyse within the novel dataset and the broad temporal 
+spectrum, with data ranging from 1991 to 2020. Overall, the primary aim of this
+study is to understand which political, economic, and militaristic factors 
+underpin the different relationships European states have with Gazprom, and why 
+these trends may have changed over time. In doing so, we might be able to better
+understand how European states can strive for increased energy independence in
+the future and divest themselves from Gazprom and the Russian state. 
 
-The first visualisation I want to make should be a reflection of the size of the top 20 total foreign donations recieved by schools in the US.
+My null hypothesis, or H(0), is that domestic natural gas production levels, 
+military alliances, and corruption levels are not statistically significant 
+factors structuring the relationship between Gazprom and client states (further
+discussion of significance levels to come). By posing this as a null hypothesis,
+if any one of these relationships are found to be statistically significant, we
+can reject the null hypothesis and conduct further analysis on causality. With
+regards to the relative significance of each variable, I would hypothesize that
+domestic natural gas production rates have the most statistically significant 
+inverse relationship with Gazprom reliance. That is to say that as domestic 
+natural gas production increases, I would predict some sort of proportional 
+decrease in reliance on Gazprom. 
+
 
 ```{r}
 
+gazprom_data <- read_csv("Gazprom_data.csv")
 
-top_20_schools <- foreign_gifts |>
-  rename(School_Name = `School Name`, Donation_Amount = `Amount`) |>
-  group_by(School_Name) |>
-  summarize(Total_Donations = sum(as.numeric(gsub('[$,]', '', Donation_Amount))) / 1000000000) |>
-  arrange(desc(Total_Donations)) |>
-  top_n(20)
+gazprom_data <- subset(gazprom_data, select = c(Year, Country, Production, Gazprom_Imports, Natural_Gas_Reliance, Total_Reliance, Difference_in_Reliance, Geographic_Status, Military_Alliance, Control_of_Corruption))
 
-top_20_schools
+gazprom_data$Natural_Gas_Reliance <- as.numeric(sub("%", "", gazprom_data$Natural_Gas_Reliance))/100
+gazprom_data$Total_Reliance <- as.numeric(sub("%", "", gazprom_data$Total_Reliance))/100
+gazprom_data$Difference_in_Reliance <- as.numeric(sub("%", "", gazprom_data$Difference_in_Reliance))/100
 
+view(gazprom_data)
 ```
-
-This is now the top 20 total recipients expressed in billions. Let's make a graph.
-
-```{r}
-
-bar_chart <- ggplot(top_20_schools, aes(x = reorder(School_Name, -Total_Donations), y = Total_Donations)) +
-  geom_bar(stat = "identity", fill = "skyblue") +
-  labs(title = "Top 20 Schools by Total Donation Amount (in Billions USD)",
-       x = "School Name",
-       y = "Total Donation Amount (Billions USD)") +
-  theme(axis.text.x = element_text(angle = 70, hjust = 1))
-
-print(bar_chart)
-
-```
-
-## Milestone 4
-
-In this analysis, I want to find out if there are any significant differences in 
-the methods of donation between the top 5 country donors. The first thing I need
-to do is to group the data by the top 5 countries.
-
-```{r}
-
-country_donors <- foreign_gifts |>
-rename(Donor_Country = `Attribution Country`, Donation_Amount = `Amount`, Transaction_Method = `Transaction Type`) |>
-group_by(Donor_Country) |>
-summarize(Total_Donations = sum(as.numeric(gsub('[$,]', '', Donation_Amount)) / 1000000000)) |>
-  arrange(desc(Total_Donations)) |>
-  top_n(5)
-  
-country_donors
-
-```
-
-Great, so we know that the top 5 countries donating to US colleges are Qatar, 
-England, Canada, China, and Saudi Arabia. I'm now going to filter the data to 
-these 5 countries and then group the data by the transaction type. 
-
-```{r}
-
-foreign_gifts$Amount <- as.numeric(gsub("[^0-9.]", "", foreign_gifts$Amount))
-
-countries_of_interest <- c("QATAR", "ENGLAND", "CANADA", "CHINA", "SAUDI ARABIA")
-
-filtered_data <- foreign_gifts |>
-  filter(`Attribution Country` %in% countries_of_interest)
-
-donation_type <- filtered_data |>
-  group_by(`Transaction Type`, `Attribution Country`) |>
-  summarize(total_amount = sum(Amount)/1000000000) 
-
-donation_type
-
-```
-
-Great, so I now have a table which shows us the top 5 countries, each of their 
-donations (in $bn), and the transaction type. Now I want to make a plot which
-shows the top 5 countries, their donation volume, and the proportion each
-transaction type makes up.
-
-```{r}
-# Create bar chart
-donation_bar <- ggplot(data = donation_type, 
-                       mapping = aes(x = `Attribution Country`, y = `total_amount`, fill = `Transaction Type`)) +
-  geom_bar(stat = "identity", position = "stack") +
-  labs(title = "Proportion of Transaction Types for Top 5 Countries",
-       x = "Country",
-       y = "Total Donation (in billion USD)") +
-  scale_fill_manual(values = c("Gift" = "blue", "Restricted Gift" = "purple", "Contract" = "red", "Restricted Contract" = "yellow"))
-
-print(donation_bar)
-
-```
-
-From our analysis table and bar chart, there are a few key takeaways we can 
-make. Firstly, we know that Qatar is the largest national donor to US colleges.
-Secondly, for all of the top 5 donor countries except Canada, contracts are the
-most commonly used transaction type. Rather than donating money through 
-contracts, Canada prefers to give money through gifts, whilst Qatar 
-(the largest) gives very little gifts as a proportion of its total donations, 
-with no restricted gifts at all. 
 
