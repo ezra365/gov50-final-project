@@ -15,7 +15,7 @@ library(ggplot2)
 
 ```
 
-## Introduction
+## Introduction 
 
 What are the key relationships which structure European states’ dependency on 
 Gazprom’s natural gas exports?
@@ -56,6 +56,48 @@ domestic natural gas production rates have the most statistically significant
 inverse relationship with Gazprom reliance. That is to say that as domestic 
 natural gas production increases, I would predict some sort of proportional 
 decrease in reliance on Gazprom. 
+
+## Data Summary
+
+I constructed the  ‘Gazprom Reliance’ dataset from a variety of different 
+publicly available sources. This dataset contains variables related to Gazprom’s
+energy diplomacy with 12 different European states, specifically in relation to 
+natural gas. It combines data gleaned from Gazprom internal reporting, the 
+International Energy Agency (IEA), the World Bank, US Energy Information 
+Administration (EIA), and academic literature (Stern 2005). Ten different 
+variables have been included in this dataset: year, country, production, Gazprom
+imports, natural gas reliance, total energy reliance, difference in reliance, 
+geographic status, military alliance, and control of corruption. Given my
+research question, the dependent variables are ‘Gazprom_Imports’, 
+‘Natural_Gas_Reliance’,and ‘Total Reliance’. Though this dataframe does not 
+exactly match any of the research design definitions, it is closest in nature to
+a ‘differences in differences’ design because 1) it measures change over time,
+2) it is observational insofar that we are not controlling any of the changes, 
+and 3) it measures difference across different kinds of ‘interventions’ (e.g.,
+NATO membership, corruption levels). 
+
+All the variables included in this dataset were measured in unique ways. Gazprom 
+import data was sourced from Gazprom’s annual reports, and thus is largely 
+survey-driven data. The other two dependant variables (natural gas reliance and
+total reliance) are from an IEA dataset which uses statistical modelling 
+combining Total Energy Supply (TES), import data, and production data to output
+a percentage integer representing reliance on Russian fuel. The natural gas
+reliance variable denotes the reliance on Russian natural gas, whilst the total
+reliance variable denotes the reliance on all Russian fossil fuels (including 
+oil and coal). It is also worth noting that Russian natural gas exports are
+equal to Gazprom exports, since Gazprom has monopoly control over the Russian 
+natural gas export industry. With regards to some of the key independent
+variables, the control over corruption index is a statistical model run by The 
+World Bank, and the natural gas production data is survey data sourced from the
+IEA. Please also note that when collating this dataset, I standardized all units
+for production and imports into billion cubic metres (bcm). 
+
+
+
+
+
+
+
 
 
 ```{r}
