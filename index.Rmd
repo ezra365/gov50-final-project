@@ -96,17 +96,17 @@ Below is a summary of the dependant variables in this dataset.
 
 ```{r} 
 
-## Firstly, I need to clean the dataset and make sure all variables are correct
+# Firstly, I need to clean the dataset and make sure all variables are correct
 
 gazprom_data <- read_csv("Gazprom_data.csv")
 
-## There were some empty columns, so this is subsetting to the one's we want
+# There were some empty columns, so this is subsetting to the one's we want
 
 gazprom_data <- subset(gazprom_data, select = c(Year, Country, Production, 
 Gazprom_Imports, Natural_Gas_Reliance, Total_Reliance, Difference_in_Reliance, 
 Geographic_Status, Military_Alliance, Control_of_Corruption))
 
-## In this section I am converting the % variables into decimal integers
+# In this section I am converting the % variables into decimal integers
 
 gazprom_data$Natural_Gas_Reliance <- as.numeric(sub("%", "", 
 gazprom_data$Natural_Gas_Reliance))/100
@@ -121,12 +121,12 @@ gazprom_data$Difference_in_Reliance))/100
 
 ```{r}
 
-## This is a summary plot for the dependent natural gas reliance variable
+# This is a summary plot for the dependent natural gas reliance variable
 
 distinct_colors <- c("#1f78b4", "#33a02c", "#e31a1c", "#ff7f00", "#6a3d9a", 
 "#b15928", "#a6cee3", "#fdbf6f", "#ffed6f", "#fb9a99", "#cab2d6")
 
-## I'm using distinct colour codes above to make sure the plot is clear
+# I'm using distinct colour codes above to make sure the plot is clear
 
 gas_reliance_plot <- ggplot(gazprom_data, aes(x = Year, y = Natural_Gas_Reliance,
 group = Country, color = Country)) +
@@ -146,7 +146,7 @@ print(gas_reliance_plot)
 
 ```{r}
 
-## This is a summary plot for the dependent Gazprom imports variable
+# This is a summary plot for the dependent Gazprom imports variable
 
 distinct_colors <- c("#1f78b4", "#33a02c", "#e31a1c", "#ff7f00", "#6a3d9a",
 "#b15928", "#a6cee3", "#fdbf6f", "#ffed6f", "#fb9a99", "#cab2d6", "#8dd3c7")
@@ -166,7 +166,7 @@ print(imports_plot)
 ```
 
 ```{r}
-## This is a summary plot for the dependent Total Reliance variable
+# This is a summary plot for the dependent Total Reliance variable
 
 distinct_colors <- c("#1f78b4", "#33a02c", "#e31a1c", "#ff7f00", "#6a3d9a",
 "#b15928", "#a6cee3", "#fdbf6f", "#ffed6f", "#fb9a99")
