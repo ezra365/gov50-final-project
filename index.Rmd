@@ -1,7 +1,7 @@
 ---
 title: "Gov 50 Final Project"
 author: "Ezra Sharpe"
-description: "Final project"
+description: "An Analysis of European States' Reliance on Gazprom"
 output:
   distill::distill_article:
     self_contained: false
@@ -490,6 +490,14 @@ future study on this topic would greatly benefit from additional data on FSU
 countries, and given more scope, it would be interesting to do a sensitivity 
 analysis for different time periods rather than generalizing trends from
 1991-2020. 
+
+## Reference List
+
+Original dataset, available upon request. The codebook can be found at:
+https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:4cbc5959-7089-3fef-bc1b-c67d906f8d69
+
+Stern, Jonathan P. 2005. The Future of Russian Gas and Gazprom. New York: Oxford University Press.
+
 
 
 
