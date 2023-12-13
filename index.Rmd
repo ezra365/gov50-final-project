@@ -7,7 +7,7 @@ output:
     self_contained: false
 ---
 
-```{r}
+```{r, include = FALSE}
 library(tidyverse)
 library(dplyr)
 library(readr)
@@ -188,15 +188,15 @@ print(total_reliance_plot)
 ## Results
 
 In this section of the study I now want to analyze the relationship between the
-dependant variables (reliance on Russian natural gas and total reliance) and 
-many of the independent variabes, such as geographic status, corruption, and 
-production levels. I aim to do by measuring Average Treatment Effect (ATE) where
-applicable for categorical variables, linear regression, and multiple 
-regression. A lot of different relationships could be tested, but for brevity I
-will be looking at the effect of geographic status and corruption levels on 
-Russian natural gas reliance. 
+dependant variables (mainly reliance on Russian natural gas) and 
+many of the independent variabes, such as geographic status, military alliances,
+and production levels. I aim to do by measuring Average Treatment Effect (ATE)
+where applicable, linear regression, and multiple regression. A lot of different
+relationships could be tested, but for brevity I will be looking at the effect 
+of geographic status, military alliance, and production on Russian natural gas 
+reliance. 
 
-## Reliance on Russian natural gas - The Geographic Status Variable
+## Reliance on Russian Natural Gas - The Geographic Status Variable
 
 For this variable, we can look at the ATE that geographic status has on natural 
 gas reliance
