@@ -193,7 +193,9 @@ dependant variables (reliance on Russian natural gas and total reliance) and
 many of the independent variabes, such as changing military alliances, 
 geographic status,corruption, and production levels. I aim to do by measuring 
 Average Treatment Effect (ATE) where applicable, linear regression, and multiple
-regression. 
+regression. A lot of different relationships could be tested, but for brevity I
+will be looking at the effect of geographic status and corruption levels on 
+Russian natural gas reliance. 
 
 ## Reliance on Russian natural gas - the geographic status variable
 
@@ -202,19 +204,19 @@ gas reliance
 
 ```{r}
 
-## Let's start with Near Abroad countries
+# Let's start with Near Abroad countries
 
 mean_near_abroad <- gazprom_data |>
   filter(Geographic_Status == "Near Abroad") |>
   summarise(near_abroad_treatment = mean(Natural_Gas_Reliance))
 
-## Now we will look at Former Soviet Union (FSU) countries
+# Now we will look at Former Soviet Union (FSU) countries
 
 mean_FSU <- gazprom_data |>
   filter(Geographic_Status == "FSU") |>
   summarise(FSU_treatment = mean(Natural_Gas_Reliance, na.rm = TRUE))
 
-## now we will look at the ATE
+# Now we will look at the ATE
 
 ATE <- mean_FSU$FSU_treatment - mean_near_abroad$near_abroad_treatment 
 
@@ -224,10 +226,78 @@ geographic_means <- tibble(
                      mean_near_abroad$near_abroad_treatment, ATE))
 
 geographic_means |> knitr::kable(digits = 2)
+```
 
-  
+Great, I now know that the average natural gas reliance for FSU countries from
+1991-2020 is 80% (2 digits), whilst the average natural gas reliance for 'Near 
+Abroad' countries in the same period was 48% (2 digits). This means that being
+in an FSU country has an ATE of 32 percentage points. Now let's test if this
+has any stastistical significance. I'm going to do so by generating 1,000
+bootstrap replications to then calculate a 90% confidence interval to see if we
+can reject the null hypothesis. 
+
+In this case, the null is that there is no pronounced effect of being an FSU
+country on mean reliance on Russian natural gas from 1991-2020 (ATE = 0).
+
+```{r}
+library(infer)
+set.seed(02138)
+
+# I am going to bootstrap seperately as one variable as numeric and the other dbl
+
+geographic_boot_near_abroad <- gazprom_data |>
+  filter(Geographic_Status == "Near Abroad") |>
+  specify(response = Natural_Gas_Reliance) |>
+  generate(reps = 1000, type = "bootstrap") |>
+  calculate(stat = "mean")
+
+geographic_boot_FSU <- gazprom_data |>
+  filter(Geographic_Status == "FSU") |>
+  filter(!is.na(Natural_Gas_Reliance)) |>
+  specify(response = Natural_Gas_Reliance) |>
+  generate(reps = 1000, type = "bootstrap") |>
+  calculate(stat = "mean")
+
+# Calculate all the different ATEs from bootstrapped means
+
+geographic_boot_ATE <- geographic_boot_FSU$stat - geographic_boot_near_abroad$stat
+
+# Now work out the CI based on this
+
+geographic_ci_90 <- tibble(
+  lower_interval = quantile(geographic_boot_ATE, 0.05),
+  upper_interval = quantile(geographic_boot_ATE, 0.95)
+)
+
+geographic_ci_90 |> knitr::kable(digits = 2)
 
 ```
+Let's put this into a vizualisation. 
+
+```{r}
+
+geog_boot_ATE_plot <- ggplot() +
+  geom_histogram(aes(x = geographic_boot_ATE), fill = "blue", bins = 30, alpha = 0.7) +
+  geom_vline(xintercept = geographic_ci_90$lower_interval, linetype = "dashed",
+             color = "red") +
+  geom_vline(xintercept = geographic_ci_90$upper_interval, linetype = "dashed",
+             color = "red") +
+  labs(title = "Bootstrapped ATE Distribution", x = "ATE", y = "Frequency")
+
+geog_boot_ATE_plot
+```
+
+Here we can see that our confidence interval is [0.25, 0.38]. Given this CI,
+which does not include 0 - the null hypothesis value - we can infer that the 
+observed difference in mean natural gas reliance between FSU and Near Abroad 
+countries may be statistically significant. Since the confidence interval does 
+not include 0, we can reject the null hypothesis at the 0.1 significance level.
+In other words, the observed difference in means (point estimate) falls within a
+range of values that is unlikely to occur if the null hypothesis were true. 
+
+Putting this into a social science context.
+
+
 
 
 

@@ -1627,25 +1627,27 @@ dependant variables (reliance on Russian natural gas and total reliance) and
 many of the independent variabes, such as changing military alliances,
 geographic status,corruption, and production levels. I aim to do by measuring
 Average Treatment Effect (ATE) where applicable, linear regression, and multiple
-regression.</p>
+regression. A lot of different relationships could be tested, but for brevity I
+will be looking at the effect of geographic status and corruption levels on
+Russian natural gas reliance.</p>
 <h2 id="reliance-on-russian-natural-gas---the-geographic-status-variable">Reliance on Russian natural gas - the geographic status variable</h2>
 <p>For this variable, we can look at the ATE that geographic status has on natural
 gas reliance</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>## Let's start with Near Abroad countries</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Let's start with Near Abroad countries</span></span>
 <span></span>
 <span><span class='va'>mean_near_abroad</span> <span class='op'>&lt;-</span> <span class='va'>gazprom_data</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Geographic_Status</span> <span class='op'>==</span> <span class='st'>"Near Abroad"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>near_abroad_treatment <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Natural_Gas_Reliance</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'>## Now we will look at Former Soviet Union (FSU) countries</span></span>
+<span><span class='co'># Now we will look at Former Soviet Union (FSU) countries</span></span>
 <span></span>
 <span><span class='va'>mean_FSU</span> <span class='op'>&lt;-</span> <span class='va'>gazprom_data</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Geographic_Status</span> <span class='op'>==</span> <span class='st'>"FSU"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>FSU_treatment <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Natural_Gas_Reliance</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'>## now we will look at the ATE</span></span>
+<span><span class='co'># Now we will look at the ATE</span></span>
 <span></span>
 <span><span class='va'>ATE</span> <span class='op'>&lt;-</span> <span class='va'>mean_FSU</span><span class='op'>$</span><span class='va'>FSU_treatment</span> <span class='op'>-</span> <span class='va'>mean_near_abroad</span><span class='op'>$</span><span class='va'>near_abroad_treatment</span> </span>
 <span></span>
@@ -1654,7 +1656,7 @@ gas reliance</p>
 <span>  Treatment_Mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>mean_FSU</span><span class='op'>$</span><span class='va'>FSU_treatment</span>, </span>
 <span>                     <span class='va'>mean_near_abroad</span><span class='op'>$</span><span class='va'>near_abroad_treatment</span>, <span class='va'>ATE</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>geographic_means</span> <span class='op'>|&gt;</span> <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+<span><span class='va'>geographic_means</span> <span class='op'>|&gt;</span> <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
 </div>
 <table>
 <thead>
@@ -1666,19 +1668,85 @@ gas reliance</p>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">FSU</td>
-<td style="text-align: right;">0.7975309</td>
+<td style="text-align: right;">0.80</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Near Abroad</td>
-<td style="text-align: right;">0.4793333</td>
+<td style="text-align: right;">0.48</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ATE</td>
-<td style="text-align: right;">0.3181975</td>
+<td style="text-align: right;">0.32</td>
 </tr>
 </tbody>
 </table>
 </div>
+<p>Great, I now know that the average natural gas reliance for FSU countries from
+1991-2020 is 80% (2 digits), whilst the average natural gas reliance for ‘Near
+Abroad’ countries in the same period was 48% (2 digits). This means that being
+in an FSU country has an ATE of 32 percentage points. Now let’s test if this
+has any stastistical significance. I’m going to do so by generating 1,000
+bootstrap replications to then calculate a 90% confidence interval to see if we
+can reject the null hypothesis.</p>
+<p>In this case, the null is that there is no pronounced effect of being an FSU
+country on mean reliance on Russian natural gas from 1991-2020 (ATE = 0).</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/infer'>infer</a></span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>02138</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># I am going to bootstrap seperately as one variable as numeric and the other dbl</span></span>
+<span></span>
+<span><span class='va'>geographic_boot_near_abroad</span> <span class='op'>&lt;-</span> <span class='va'>gazprom_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Geographic_Status</span> <span class='op'>==</span> <span class='st'>"Near Abroad"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://infer.tidymodels.org/reference/specify.html'>specify</a></span><span class='op'>(</span>response <span class='op'>=</span> <span class='va'>Natural_Gas_Reliance</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://infer.tidymodels.org/reference/generate.html'>generate</a></span><span class='op'>(</span>reps <span class='op'>=</span> <span class='fl'>1000</span>, type <span class='op'>=</span> <span class='st'>"bootstrap"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://infer.tidymodels.org/reference/calculate.html'>calculate</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"mean"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>geographic_boot_FSU</span> <span class='op'>&lt;-</span> <span class='va'>gazprom_data</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Geographic_Status</span> <span class='op'>==</span> <span class='st'>"FSU"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>Natural_Gas_Reliance</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://infer.tidymodels.org/reference/specify.html'>specify</a></span><span class='op'>(</span>response <span class='op'>=</span> <span class='va'>Natural_Gas_Reliance</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://infer.tidymodels.org/reference/generate.html'>generate</a></span><span class='op'>(</span>reps <span class='op'>=</span> <span class='fl'>1000</span>, type <span class='op'>=</span> <span class='st'>"bootstrap"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://infer.tidymodels.org/reference/calculate.html'>calculate</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"mean"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Calculate all the different ATEs from bootstrapped means</span></span>
+<span></span>
+<span><span class='va'>geographic_boot_ATE</span> <span class='op'>&lt;-</span> <span class='va'>geographic_boot_FSU</span><span class='op'>$</span><span class='va'>stat</span> <span class='op'>-</span> <span class='va'>geographic_boot_near_abroad</span><span class='op'>$</span><span class='va'>stat</span></span>
+<span></span>
+<span><span class='co'># Now work out the CI based on this</span></span>
+<span></span>
+<span><span class='va'>geographic_ci_90</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span></span>
+<span>  lower_interval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>geographic_boot_ATE</span>, <span class='fl'>0.05</span><span class='op'>)</span>,</span>
+<span>  upper_interval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>geographic_boot_ATE</span>, <span class='fl'>0.95</span><span class='op'>)</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>geographic_ci_90</span> <span class='op'>|&gt;</span> <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">lower_interval</th>
+<th style="text-align: right;">upper_interval</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.38</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Let’s put this into a vizualisation.</p>
+<p>Here we can see that our confidence interval is [0.25, 0.38]. Given this CI,
+which does not include 0 - the null hypothesis value - we can infer that the
+observed difference in mean natural gas reliance between FSU and Near Abroad
+countries may be statistically significant. Since the confidence interval does
+not include 0, we can reject the null hypothesis at the 0.1 significance level.
+In other words, the observed difference in means (point estimate) falls within a
+range of values that is unlikely to occur if the null hypothesis were true.</p>
+<p>Putting this into a social science context.</p>
 <pre><code>
 ```{.r .distill-force-highlighting-css}</code></pre>
 <!--radix_placeholder_article_footer-->
