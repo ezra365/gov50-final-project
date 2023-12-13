@@ -272,7 +272,8 @@ geographic_ci_90 <- tibble(
 geographic_ci_90 |> knitr::kable(digits = 2)
 
 ```
-Let's put this into a vizualisation. 
+
+## Summary Plot
 
 ```{r}
 
@@ -406,22 +407,23 @@ The intercept of 0.730 is the estimated value of Natural Gas Reliance when all
 other predictors are held at zero. In this context, it represents the baseline 
 level of reliance when all other variables are not considered.
 
-Beginning with Military Alliances the coefficent of -0.177 means that, when 
+Beginning with Military Alliances, the coefficent of -0.177 means that, when 
 holding other variables constant, a one-unit increase in the `military_ind` 
 variable (switching from 0 to 1, indicating NATO membership) is associated with 
-a decrease of 0.177 units in Natural Gas Reliance. This is an interesting 
-result because it suggests that countries in a military alliance with NATO tend
-to have lower reliance on Russian natural gas, and more specifically, that 
-countries which join NATO see a 17.7% percentage point decrease in their 
-reliance on Russian natural gas.
+a decrease of 0.177 percentage points in Natural Gas Reliance. This is an 
+interesting result because it suggests that countries in a military alliance 
+with NATO tend to have lower reliance on Russian natural gas, and more
+specifically, that countries which join NATO see a 17.7% percentage point
+decrease in their reliance on Russian natural gas.
 
 Now moving to Geographic Status, the coefficent of 0.181 means that, when 
 holding other variables constant, a one-unit increase in the `geographic_ind` 
 variable (switching from 0 to 1, indicating FSU countries) is associated with an
-increase of 0.181 units in Natural Gas Reliance. This suggests that countries
-in the FSU region tend to have higher reliance on Russian natural gas by 18.1 
-percentage points, and corroborates my previous findings from the ATE bootstrap 
-analysis, especially since this is also statistically significant (p < 0.001).
+increase of 0.181 percentage points in Natural Gas Reliance. This suggests that
+countries in the FSU region tend to have higher reliance on Russian natural gas
+by 18.1 percentage points, and corroborates my previous findings from the ATE
+bootstrap analysis, especially since this is also statistically significant 
+(p < 0.001).
 
 The change in the coefficient for the Production variable from -0.008 to 
 -0.007 between the two regressions indicates a slight adjustment in the 
@@ -430,6 +432,29 @@ additional variables (`Military Alliance` and `Geographic Status`) are included
 in the model. This suggests that, after accounting for the influence of military
 alliance and geographic status, the estimated effect of a one-unit increase in
 production on `Natural_Gas_Reliance` is now slightly smaller.
+
+## Summary Plot
+
+```{r}
+
+ggplot(multiregression_summary, aes(x = term, y = estimate, fill = ifelse(p.value < 0.05, "Significant", "Not Significant"))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_errorbar(aes(ymin = estimate - 1.96 * std.error, ymax = estimate + 1.96 * std.error), position = position_dodge(width = 0.8), width = 0.2) + #1.96 is a 95% CI
+  labs(title = "Multiple Regression Coefficients",
+       subtitle = "with 95% Confidence Intervals",
+       x = "Variable Name",
+       y = "Coefficient Estimate") +
+  scale_fill_manual(values = c("Significant" = "red", "Not Significant" = "gray")) +
+  theme_minimal() +
+  theme(legend.title = element_blank()) +
+  scale_x_discrete(labels = c("Intercept" = "(Intercept)", 
+                              "geographic_ind" = "Geographic Status", 
+                              "military_ind" = "Military Alliance", 
+                              "Production" = "Production")) +
+    scale_y_continuous(breaks = seq(-0.5, 1, by = 0.15))
+
+```
+
 
 
 
