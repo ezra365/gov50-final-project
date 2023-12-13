@@ -7,11 +7,14 @@ output:
     self_contained: false
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
+options(width = 100)
+knitr::opts_chunk$set(error = TRUE)
 library(tidyverse)
-library(dplyr)
 library(readr)
+library(dplyr)
 library(ggplot2)
+library(modelsummary)
 ```
 
 ## Introduction 
@@ -94,7 +97,7 @@ metres (bcm). A codebook for this dataset is available upon request!
 
 Below is a summary of the dependant variables in this dataset. 
 
-```{r} 
+```{r}
 
 # Firstly, I need to clean the dataset and make sure all variables are correct
 
@@ -166,6 +169,7 @@ print(imports_plot)
 ```
 
 ```{r}
+
 # This is a summary plot for the dependent Total Reliance variable
 
 distinct_colors <- c("#1f78b4", "#33a02c", "#e31a1c", "#ff7f00", "#6a3d9a",
@@ -225,6 +229,7 @@ geographic_means <- tibble(
                      mean_near_abroad$near_abroad_treatment, ATE))
 
 geographic_means |> knitr::kable(digits = 2)
+
 ```
 
 Great, I now know that the average natural gas reliance for FSU countries from
@@ -239,6 +244,7 @@ In this case, the null is that there is no pronounced effect of being an FSU
 country on mean reliance on Russian natural gas from 1991-2020 (ATE = 0).
 
 ```{r}
+
 library(infer)
 set.seed(02138)
 
@@ -285,6 +291,7 @@ geog_boot_ATE_plot <- ggplot() +
   labs(title = "Bootstrapped ATE Distribution", x = "ATE", y = "Frequency")
 
 print(geog_boot_ATE_plot)
+
 ```
 
 Here we can see that our confidence interval is [0.25, 0.38]. Given this CI,
@@ -498,9 +505,12 @@ https://acrobat.adobe.com/link/review?uri=urn:aaid:scds:US:4cbc5959-7089-3fef-bc
 
 Stern, Jonathan P. 2005. The Future of Russian Gas and Gazprom. New York: Oxford University Press.
 
+\newpage
 
 
-
+```{r print-code, ref.label=knitr::all_labels(), echo = TRUE, eval=FALSE, include = FALSE}
 
 ```
+
+
 
