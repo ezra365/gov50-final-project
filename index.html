@@ -1405,6 +1405,8 @@
   </script>
   
   <!--/radix_placeholder_distill-->
+  <script src="index_files/kePrint-0.0.1/kePrint.js"></script>
+  <link href="index_files/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="index_files/popper-2.6.0/popper.min.js"></script>
   <link href="index_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -1507,10 +1509,10 @@ geographic status, military alliance, and control of corruption. Given my
 research question, the dependent variables are ‘Gazprom_Imports’,
 ‘Natural_Gas_Reliance’,and ‘Total Reliance’. Though this dataframe does not
 exactly match any of the research design definitions, it is closest in nature to
-a ‘differences in differences’ design because 1) it measures change over time,
-2) it is observational insofar that we are not controlling any of the changes,
-and 3) it measures difference across different kinds of ‘interventions’ (e.g.,
-NATO membership, corruption levels).</p>
+a time series with aspects of a ‘differences in differences’ design because
+1) it measures change over time, 2) it is observational insofar that we are not
+controlling any of the changes, and 3) it measures difference across different
+kinds of ‘interventions’ (e.g.,NATO membership, corruption levels).</p>
 <p>All the variables included in this dataset were measured in unique ways. Gazprom
 import data was sourced from Gazprom’s annual reports, and thus is largely
 survey-driven data. The other two dependant variables (natural gas reliance and
@@ -1624,13 +1626,13 @@ metres (bcm). A codebook for this dataset is available upon request!</p>
 <h2 id="results">Results</h2>
 <p>In this section of the study I now want to analyze the relationship between the
 dependant variables (reliance on Russian natural gas and total reliance) and
-many of the independent variabes, such as changing military alliances,
-geographic status,corruption, and production levels. I aim to do by measuring
-Average Treatment Effect (ATE) where applicable, linear regression, and multiple
+many of the independent variabes, such as geographic status, corruption, and
+production levels. I aim to do by measuring Average Treatment Effect (ATE) where
+applicable for categorical variables, linear regression, and multiple
 regression. A lot of different relationships could be tested, but for brevity I
 will be looking at the effect of geographic status and corruption levels on
 Russian natural gas reliance.</p>
-<h2 id="reliance-on-russian-natural-gas---the-geographic-status-variable">Reliance on Russian natural gas - the geographic status variable</h2>
+<h2 id="reliance-on-russian-natural-gas---the-geographic-status-variable">Reliance on Russian natural gas - The Geographic Status Variable</h2>
 <p>For this variable, we can look at the ATE that geographic status has on natural
 gas reliance</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1685,7 +1687,7 @@ gas reliance</p>
 1991-2020 is 80% (2 digits), whilst the average natural gas reliance for ‘Near
 Abroad’ countries in the same period was 48% (2 digits). This means that being
 in an FSU country has an ATE of 32 percentage points. Now let’s test if this
-has any stastistical significance. I’m going to do so by generating 1,000
+has any statistical significance. I’m going to do so by generating 1,000
 bootstrap replications to then calculate a 90% confidence interval to see if we
 can reject the null hypothesis.</p>
 <p>In this case, the null is that there is no pronounced effect of being an FSU
@@ -1695,7 +1697,7 @@ country on mean reliance on Russian natural gas from 1991-2020 (ATE = 0).</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/infer'>infer</a></span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>02138</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'># I am going to bootstrap seperately as one variable as numeric and the other dbl</span></span>
+<span><span class='co'># I am going to bootstrap seperately as one variable is numeric and the other dbl</span></span>
 <span></span>
 <span><span class='va'>geographic_boot_near_abroad</span> <span class='op'>&lt;-</span> <span class='va'>gazprom_data</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Geographic_Status</span> <span class='op'>==</span> <span class='st'>"Near Abroad"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
@@ -1772,6 +1774,118 @@ Russian invasions of Ukraine, both in 2014 and 2022, and the spectrum of
 condoning to condemnation seen across Europe. Clearly there is still some kind
 of post-Soviet hangover which does not allow FSU states the same degree of
 energy autonomy as Near Abroad states have.</p>
+<h2 id="reliance-on-russian-natural-gas---the-production-variable">Reliance on Russian Natural Gas - The Production Variable</h2>
+<p>For this variable, we can conduct a simple linear regression to look at the
+relationship between natural gas production over time and reliance on Russian
+natural gas exports. In this case the independent variable is production. Let’s
+look at the regression with an alpha value of 0.05.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>simpregression</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Natural_Gas_Reliance</span> <span class='op'>~</span> <span class='va'>Production</span>, data <span class='op'>=</span> <span class='va'>gazprom_data</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>varnames</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coefficients</a></span><span class='op'>(</span><span class='va'>simpregression</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='fu'>modelsummary</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/modelsummary/man/modelsummary.html'>modelsummary</a></span><span class='op'>(</span><span class='va'>simpregression</span>, statistic <span class='op'>=</span> <span class='st'>"p.value"</span>, </span>
+<span>                           gof_map <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"nobs"</span>, <span class='st'>"r.squared"</span>, <span class='st'>"adj.r.squared"</span><span class='op'>)</span>,</span>
+<span>                           coef_map <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/setNames.html'>setNames</a></span><span class='op'>(</span><span class='va'>varnames</span>, <span class='va'>varnames</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+ (1)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+0.664
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(&lt;0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Production
+</td>
+<td style="text-align:center;">
+−0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+(&lt;0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+321
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+0.378
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+0.376
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The estimated intercept is 0.664, and the p-value associated with the intercept
+is less than 0.001. The intercept represents the expected value of reliance on
+Russian natural gas when the domestic production is zero, which means that when
+domestic production is zero, reliance on Russian natural gas can be expected to
+be 66.4%.</p>
+<p>The coefficient for production is -0.008, and the p-value is less than 0.001.
+The negative coefficient suggests that there is a very slight negative
+relationship between production levels and reliance on Russian natural gas. As
+production increases, reliance on Russian natural gas tends to decrease ever so
+slightly. This means that as production increases by 1 billion cubic metres, we
+can expect the reliance on Russian natural gas to fall by 0.008 percentage
+points. Despite the negative relationship being extremely minimal (almost
+inconsequential), the low p-value indicates that this relationship is
+statistically significant.</p>
+<p>Due to the nature of this data design as a time-series, I would still hesitate
+to attribute this small relationship causally given that the relationship could
+be confounded by other temporal trends between 1991-2020, such as macroeconomic
+shocks (e.g., 2008), corruption, and changing military alliances, as well as the
+fact that this dataset consists of observational data which we are not in direct
+control of.</p>
+<p>In the context of your regression, where the dependent variable is Natural Gas
+Reliance and the independent variable is Production, an adjusted R squared value
+of 0.376 indicates that approximately 37.6% of the variability in Natural Gas
+Reliance can be explained by the variation in Production. While adjusted R
+squared is a measure of the goodness of fit, it does not imply causation. Even
+though my model explains a substantial portion of the variability, it doesn’t
+provide evidence of a causal relationship between Production and Natural Gas
+Reliance. Importantly, the remaining 62.4% of the variability in Natural Gas
+Reliance is unexplained by the model.</p>
+<h2 id="potential-confounders---multiple-regression">Potential Confounders - Multiple Regression</h2>
 <pre><code>
 ```{.r .distill-force-highlighting-css}</code></pre>
 <!--radix_placeholder_article_footer-->
