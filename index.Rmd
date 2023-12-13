@@ -1,7 +1,7 @@
 ---
 title: "Gov 50 Final Project"
 author: "Ezra Sharpe"
-description: "An Analysis of European States' Reliance on Gazprom"
+description: "An Analysis of European States' Reliance on Gazprom Natural Gas"
 output:
   distill::distill_article:
     self_contained: false
