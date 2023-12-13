@@ -48,7 +48,7 @@
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["foreign_gifts.csv","gazprom_data.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/index_files.Rproj","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["foreign_gifts.csv","gazprom_data.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/figure-html5/unnamed-chunk-8-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/index_files.Rproj","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1739,14 +1739,37 @@ country on mean reliance on Russian natural gas from 1991-2020 (ATE = 0).</p>
 </table>
 </div>
 <p>Let’s put this into a vizualisation.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>geog_boot_ATE_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>geographic_boot_ATE</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='st'>"blue"</span>, bins <span class='op'>=</span> <span class='fl'>30</span>, alpha <span class='op'>=</span> <span class='fl'>0.7</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='va'>geographic_ci_90</span><span class='op'>$</span><span class='va'>lower_interval</span>, linetype <span class='op'>=</span> <span class='st'>"dashed"</span>,</span>
+<span>             color <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_vline</a></span><span class='op'>(</span>xintercept <span class='op'>=</span> <span class='va'>geographic_ci_90</span><span class='op'>$</span><span class='va'>upper_interval</span>, linetype <span class='op'>=</span> <span class='st'>"dashed"</span>,</span>
+<span>             color <span class='op'>=</span> <span class='st'>"red"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Bootstrapped ATE Distribution"</span>, x <span class='op'>=</span> <span class='st'>"ATE"</span>, y <span class='op'>=</span> <span class='st'>"Frequency"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>geog_boot_ATE_plot</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
+</div>
 <p>Here we can see that our confidence interval is [0.25, 0.38]. Given this CI,
 which does not include 0 - the null hypothesis value - we can infer that the
 observed difference in mean natural gas reliance between FSU and Near Abroad
-countries may be statistically significant. Since the confidence interval does
-not include 0, we can reject the null hypothesis at the 0.1 significance level.
-In other words, the observed difference in means (point estimate) falls within a
-range of values that is unlikely to occur if the null hypothesis were true.</p>
-<p>Putting this into a social science context.</p>
+countries may be statistically significant. In better scientific terms, though,
+we have information here to reject the null hypothesis at a 90% significance
+level. In other words, the observed difference in means (point estimate) falls
+within a range of values that is statistically unlikely to occur if the null
+hypothesis were true.</p>
+<p>Putting this into a social science context, we can infer from this analysis
+that Former Soviet Union countries from this dataset (Estonia, Lithuania,
+Ukraine, Belarus) are significantly more reliant on Russian natural gas than
+other nearby European states from 1991-2020. This is an interesting result, as
+it tells us that despite the dissolution of the USSR in 1991, the Russian
+Federation still exercises a strong degree of control through Gazprom over it’s
+former satellites. This is even more so interesting in the context of the
+Russian invasions of Ukraine, both in 2014 and 2022, and the spectrum of
+condoning to condemnation seen across Europe.</p>
 <pre><code>
 ```{.r .distill-force-highlighting-css}</code></pre>
 <!--radix_placeholder_article_footer-->

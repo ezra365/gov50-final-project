@@ -284,18 +284,28 @@ geog_boot_ATE_plot <- ggplot() +
              color = "red") +
   labs(title = "Bootstrapped ATE Distribution", x = "ATE", y = "Frequency")
 
-geog_boot_ATE_plot
+print(geog_boot_ATE_plot)
 ```
 
 Here we can see that our confidence interval is [0.25, 0.38]. Given this CI,
 which does not include 0 - the null hypothesis value - we can infer that the 
 observed difference in mean natural gas reliance between FSU and Near Abroad 
-countries may be statistically significant. Since the confidence interval does 
-not include 0, we can reject the null hypothesis at the 0.1 significance level.
-In other words, the observed difference in means (point estimate) falls within a
-range of values that is unlikely to occur if the null hypothesis were true. 
+countries may be statistically significant. In better scientific terms, though,
+we have information here to reject the null hypothesis at a 90% significance
+level. In other words, the observed difference in means (point estimate) falls 
+within a range of values that is statistically unlikely to occur if the null
+hypothesis were true. 
 
-Putting this into a social science context.
+Putting this into a social science context, we can infer from this analysis 
+that Former Soviet Union countries from this dataset (Estonia, Lithuania, 
+Ukraine, Belarus) are significantly more reliant on Russian natural gas than
+other nearby European states from 1991-2020. This is an interesting result, as 
+it tells us that despite the dissolution of the USSR in 1991, the Russian 
+Federation still exercises a strong degree of control through Gazprom over it's
+former satellites. This is even more so interesting in the context of the 
+Russian invasions of Ukraine, both in 2014 and 2022, and the spectrum of 
+condoning to condemnation seen across Europe. 
+
 
 
 
