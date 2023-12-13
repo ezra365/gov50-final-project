@@ -48,7 +48,7 @@
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["foreign_gifts.csv","gazprom_data.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/figure-html5/unnamed-chunk-8-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/index_files.Rproj","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/kePrint-0.0.1/kePrint.js","index_files/lightable-0.0.1/lightable.css","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["foreign_gifts.csv","gazprom_data.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-12-1.png","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/figure-html5/unnamed-chunk-8-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/index_files.Rproj","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/kePrint-0.0.1/kePrint.js","index_files/lightable-0.0.1/lightable.css","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1740,7 +1740,7 @@ country on mean reliance on Russian natural gas from 1991-2020 (ATE = 0).</p>
 </tbody>
 </table>
 </div>
-<p>Let’s put this into a vizualisation.</p>
+<h2 id="summary-plot">Summary Plot</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>geog_boot_ATE_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -2037,21 +2037,22 @@ R2 Adj.
 <p>The intercept of 0.730 is the estimated value of Natural Gas Reliance when all
 other predictors are held at zero. In this context, it represents the baseline
 level of reliance when all other variables are not considered.</p>
-<p>Beginning with Military Alliances the coefficent of -0.177 means that, when
+<p>Beginning with Military Alliances, the coefficent of -0.177 means that, when
 holding other variables constant, a one-unit increase in the <code>military_ind</code>
 variable (switching from 0 to 1, indicating NATO membership) is associated with
-a decrease of 0.177 units in Natural Gas Reliance. This is an interesting
-result because it suggests that countries in a military alliance with NATO tend
-to have lower reliance on Russian natural gas, and more specifically, that
-countries which join NATO see a 17.7% percentage point decrease in their
-reliance on Russian natural gas.</p>
+a decrease of 0.177 percentage points in Natural Gas Reliance. This is an
+interesting result because it suggests that countries in a military alliance
+with NATO tend to have lower reliance on Russian natural gas, and more
+specifically, that countries which join NATO see a 17.7% percentage point
+decrease in their reliance on Russian natural gas.</p>
 <p>Now moving to Geographic Status, the coefficent of 0.181 means that, when
 holding other variables constant, a one-unit increase in the <code>geographic_ind</code>
 variable (switching from 0 to 1, indicating FSU countries) is associated with an
-increase of 0.181 units in Natural Gas Reliance. This suggests that countries
-in the FSU region tend to have higher reliance on Russian natural gas by 18.1
-percentage points, and corroborates my previous findings from the ATE bootstrap
-analysis, especially since this is also statistically significant (p &lt; 0.001).</p>
+increase of 0.181 percentage points in Natural Gas Reliance. This suggests that
+countries in the FSU region tend to have higher reliance on Russian natural gas
+by 18.1 percentage points, and corroborates my previous findings from the ATE
+bootstrap analysis, especially since this is also statistically significant
+(p &lt; 0.001).</p>
 <p>The change in the coefficient for the Production variable from -0.008 to
 -0.007 between the two regressions indicates a slight adjustment in the
 estimated relationship between Production and Natural Gas Reliance when
@@ -2059,6 +2060,29 @@ additional variables (<code>Military Alliance</code> and <code>Geographic Status
 in the model. This suggests that, after accounting for the influence of military
 alliance and geographic status, the estimated effect of a one-unit increase in
 production on <code>Natural_Gas_Reliance</code> is now slightly smaller.</p>
+<h2 id="summary-plot-1">Summary Plot</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>multiregression_summary</span> <span class='op'>&lt;-</span> <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>multiregression</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>multiregression_summary</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>term</span>, y <span class='op'>=</span> <span class='va'>estimate</span>, fill <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>p.value</span> <span class='op'>&lt;</span> <span class='fl'>0.05</span>, <span class='st'>"Significant"</span>, <span class='st'>"Not Significant"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat <span class='op'>=</span> <span class='st'>"identity"</span>, position <span class='op'>=</span> <span class='st'>"dodge"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>ymin <span class='op'>=</span> <span class='va'>estimate</span> <span class='op'>-</span> <span class='fl'>1.96</span> <span class='op'>*</span> <span class='va'>std.error</span>, ymax <span class='op'>=</span> <span class='va'>estimate</span> <span class='op'>+</span> <span class='fl'>1.96</span> <span class='op'>*</span> <span class='va'>std.error</span><span class='op'>)</span>, position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_dodge.html'>position_dodge</a></span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>0.8</span><span class='op'>)</span>, width <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>+</span> <span class='co'>#1.96 is a 95% CI</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Multiple Regression Coefficients"</span>,</span>
+<span>       subtitle <span class='op'>=</span> <span class='st'>"with 95% Confidence Intervals"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"Variable Name"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Coefficient Estimate"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_manual.html'>scale_fill_manual</a></span><span class='op'>(</span>values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Significant"</span> <span class='op'>=</span> <span class='st'>"red"</span>, <span class='st'>"Not Significant"</span> <span class='op'>=</span> <span class='st'>"gray"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.title <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Intercept"</span> <span class='op'>=</span> <span class='st'>"(Intercept)"</span>, </span>
+<span>                              <span class='st'>"geographic_ind"</span> <span class='op'>=</span> <span class='st'>"Geographic Status"</span>, </span>
+<span>                              <span class='st'>"military_ind"</span> <span class='op'>=</span> <span class='st'>"Military Alliance"</span>, </span>
+<span>                              <span class='st'>"Production"</span> <span class='op'>=</span> <span class='st'>"Production"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>0.5</span>, <span class='fl'>1</span>, by <span class='op'>=</span> <span class='fl'>0.15</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
+</div>
 <pre><code>
 ```{.r .distill-force-highlighting-css}</code></pre>
 <!--radix_placeholder_article_footer-->

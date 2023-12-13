@@ -19,15 +19,14 @@ library(ggplot2)
 What are the key relationships which structure European states’ dependency on 
 Gazprom’s natural gas exports?
 
-This study will unpack this question using an originally made ‘Gazprom 
+This study will unpack this question using a self-made ‘Gazprom 
 Dependency’ dataset, which will facilitate an analysis of what kinds of 
 variables influence the relationships Gazprom has with European states. Within 
 this broad umbrella question, there are also a range of sub-questions which this
 project aims to confront; does reliance on Gazprom natural gas vary between FSU 
-countries and non-FSU countries? Over which years are these relationships most 
-pronounced? Does reliance on Gazprom natural gas vary between NATO and non-NATO
-member states? What are the general trends in changing natural gas production 
-levels over time, and what events could be potential drivers of this change? 
+countries and non-FSU countries? Does reliance on Gazprom natural gas vary 
+between NATO and non-NATO member states? How do changing domestic production 
+levels drive the reliance relationship with Russia?
 
 Studying Gazprom in close detail is an important research agenda, not least 
 because energy has been the main denominator in European states’ (in)ability to
@@ -45,16 +44,16 @@ understand how European states can strive for increased energy independence in
 the future and divest themselves from Gazprom and the Russian state. 
 
 My null hypothesis, or H(0), is that domestic natural gas production levels, 
-military alliances, and corruption levels are not statistically significant 
-factors structuring the relationship between Gazprom and client states (further
-discussion of significance levels to come). By posing this as a null hypothesis,
-if any one of these relationships are found to be statistically significant, we
-can reject the null hypothesis and conduct further analysis on causality. With
-regards to the relative significance of each variable, I would hypothesize that
-domestic natural gas production rates have the most statistically significant 
-inverse relationship with Gazprom reliance. That is to say that as domestic 
-natural gas production increases, I would predict some sort of proportional 
-decrease in reliance on Gazprom. 
+military alliances, and having former Soviet Union (FSU) status are not 
+statistically significant factors structuring the relationship between Gazprom 
+and client states (further discussion of significance levels to come). By posing
+this as a null hypothesis, if any one of these relationships are found to be 
+statistically significant, we can reject the null hypothesis and conduct further
+analysis on causality. With regards to the relative significance of each 
+variable, I would hypothesize that domestic natural gas production rates have 
+the most statistically significant inverse relationship with Gazprom reliance. 
+That is to say that as domestic natural gas production increases, I would 
+predict some sort of proportional decrease in reliance on Gazprom. 
 
 ## Data Summary
 
@@ -437,14 +436,21 @@ production on `Natural_Gas_Reliance` is now slightly smaller.
 
 ```{r}
 
-ggplot(multiregression_summary, aes(x = term, y = estimate, fill = ifelse(p.value < 0.05, "Significant", "Not Significant"))) +
+multiregression_summary <- broom::tidy(multiregression)
+
+ggplot(multiregression_summary, aes(x = term, y = estimate, fill = 
+                                      ifelse(p.value < 0.05, "Significant", 
+                                             "Not Significant"))) +
   geom_bar(stat = "identity", position = "dodge") +
-  geom_errorbar(aes(ymin = estimate - 1.96 * std.error, ymax = estimate + 1.96 * std.error), position = position_dodge(width = 0.8), width = 0.2) + #1.96 is a 95% CI
+  geom_errorbar(aes(ymin = estimate - 1.96 * std.error, ymax = estimate + 1.96 
+                    * std.error), position = position_dodge(width = 0.8), width
+                = 0.2) + #1.96 is a 95% CI on a normal distribution curve
   labs(title = "Multiple Regression Coefficients",
        subtitle = "with 95% Confidence Intervals",
        x = "Variable Name",
        y = "Coefficient Estimate") +
-  scale_fill_manual(values = c("Significant" = "red", "Not Significant" = "gray")) +
+  scale_fill_manual(values = c("Significant" = "red", "Not Significant" = 
+                                 "gray")) +
   theme_minimal() +
   theme(legend.title = element_blank()) +
   scale_x_discrete(labels = c("Intercept" = "(Intercept)", 
@@ -455,7 +461,35 @@ ggplot(multiregression_summary, aes(x = term, y = estimate, fill = ifelse(p.valu
 
 ```
 
+## Conclusion 
 
+By way of conclusion, it is clear that there are statistically significant
+relationships between European states' reliance on Russian natural gas and their
+military alliances, historical-geographic status, and domestic production
+levels of natural gas. Whilst all relationships were significant at the 0.05 
+alpha level, geographic status seems to be the most important variable under
+consideration structuring these relationships. Not only did it have the highest
+coefficent in the multiple regression model (0.181), but it was also found that
+being an FSU country has a statistically significant average treatment effect
+on Russian natural gas reliance in comparison to Near Abroad nations after
+bootstrapping. This, I argue, runs against the grain of my initial hypothesis 
+which speculated that domestic gas production levels would be the most 
+significant factor influencing reliance on Russian natural gas. In fact, out of
+all the variables under the microscope it turned out to have the weakest 
+relationship (-0.007 in multiple regression) - though it was still significant.
+In spite of these conclusions, it is important to be aware of some
+limitations. Firstly, we have the obvious problem of missing data, which is
+exacerbated during the immediate post-Cold War years, and even more so for some
+FSU states where data was not transparently recorded (such as Belarus). It is
+always challenging establishing causality from data, but there are some 
+potential confounders which were not explored in depth in this study, such as
+policy shifts, geopolitical changes (such as Gazprom's gas dispute with Ukraine 
+in 2008-9), and so on. It might be the case that some long-term relationships or
+short-term fluctuations cannot be explained by the variables in this dataset. A
+future study on this topic would greatly benefit from additional data on FSU 
+countries, and given more scope, it would be interesting to do a sensitivity 
+analysis for different time periods rather than generalizing trends from
+1991-2020. 
 
 
 
