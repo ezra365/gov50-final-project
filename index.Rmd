@@ -186,4 +186,55 @@ theme_minimal()
 print(total_reliance_plot)
 
 ```
+## Results
+
+In this section of the study I now want to analyze the relationship between the
+dependant variables (reliance on Russian natural gas and total reliance) and 
+many of the independent variabes, such as changing military alliances, 
+geographic status,corruption, and production levels. I aim to do by measuring 
+Average Treatment Effect (ATE) where applicable, linear regression, and multiple
+regression. 
+
+## Reliance on Russian natural gas - the geographic status variable
+
+For this variable, we can look at the ATE that geographic status has on natural 
+gas reliance
+
+```{r}
+
+## Let's start with Near Abroad countries
+
+mean_near_abroad <- gazprom_data |>
+  filter(Geographic_Status == "Near Abroad") |>
+  summarise(near_abroad_treatment = mean(Natural_Gas_Reliance))
+
+## Now we will look at Former Soviet Union (FSU) countries
+
+mean_FSU <- gazprom_data |>
+  filter(Geographic_Status == "FSU") |>
+  summarise(FSU_treatment = mean(Natural_Gas_Reliance, na.rm = TRUE))
+
+## now we will look at the ATE
+
+ATE <- mean_FSU$FSU_treatment - mean_near_abroad$near_abroad_treatment 
+
+geographic_means <- tibble(
+  Geographic_Status = c("FSU", "Near Abroad", "ATE"),
+  Treatment_Mean = c(mean_FSU$FSU_treatment, 
+                     mean_near_abroad$near_abroad_treatment, ATE))
+
+geographic_means |> knitr::kable(digits = 2)
+
+  
+
+```
+
+
+
+
+
+
+
+
+```
 
