@@ -1524,17 +1524,17 @@ metres (bcm). A codebook for this dataset is available upon request!</p>
 <p>Below is a summary of the dependant variables in this dataset.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>## Firstly, I need to clean the dataset and make sure all variables are correct</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># Firstly, I need to clean the dataset and make sure all variables are correct</span></span>
 <span></span>
 <span><span class='va'>gazprom_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"Gazprom_data.csv"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'>## There were some empty columns, so this is subsetting to the one's we want</span></span>
+<span><span class='co'># There were some empty columns, so this is subsetting to the one's we want</span></span>
 <span></span>
 <span><span class='va'>gazprom_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>gazprom_data</span>, select <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>Year</span>, <span class='va'>Country</span>, <span class='va'>Production</span>, </span>
 <span><span class='va'>Gazprom_Imports</span>, <span class='va'>Natural_Gas_Reliance</span>, <span class='va'>Total_Reliance</span>, <span class='va'>Difference_in_Reliance</span>, </span>
 <span><span class='va'>Geographic_Status</span>, <span class='va'>Military_Alliance</span>, <span class='va'>Control_of_Corruption</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'>## In this section I am converting the % variables into decimal integers</span></span>
+<span><span class='co'># In this section I am converting the % variables into decimal integers</span></span>
 <span></span>
 <span><span class='va'>gazprom_data</span><span class='op'>$</span><span class='va'>Natural_Gas_Reliance</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>"%"</span>, <span class='st'>""</span>, </span>
 <span><span class='va'>gazprom_data</span><span class='op'>$</span><span class='va'>Natural_Gas_Reliance</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>100</span></span>
@@ -1548,12 +1548,12 @@ metres (bcm). A codebook for this dataset is available upon request!</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>## This is a summary plot for the dependent natural gas reliance variable</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># This is a summary plot for the dependent natural gas reliance variable</span></span>
 <span></span>
 <span><span class='va'>distinct_colors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#1f78b4"</span>, <span class='st'>"#33a02c"</span>, <span class='st'>"#e31a1c"</span>, <span class='st'>"#ff7f00"</span>, <span class='st'>"#6a3d9a"</span>, </span>
 <span><span class='st'>"#b15928"</span>, <span class='st'>"#a6cee3"</span>, <span class='st'>"#fdbf6f"</span>, <span class='st'>"#ffed6f"</span>, <span class='st'>"#fb9a99"</span>, <span class='st'>"#cab2d6"</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='co'>## I'm using distinct colour codes above to make sure the plot is clear</span></span>
+<span><span class='co'># I'm using distinct colour codes above to make sure the plot is clear</span></span>
 <span></span>
 <span><span class='va'>gas_reliance_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>gazprom_data</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Year</span>, y <span class='op'>=</span> <span class='va'>Natural_Gas_Reliance</span>,</span>
 <span>group <span class='op'>=</span> <span class='va'>Country</span>, color <span class='op'>=</span> <span class='va'>Country</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -1573,7 +1573,7 @@ metres (bcm). A codebook for this dataset is available upon request!</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>## This is a summary plot for the dependent Gazprom imports variable</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># This is a summary plot for the dependent Gazprom imports variable</span></span>
 <span></span>
 <span><span class='va'>distinct_colors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#1f78b4"</span>, <span class='st'>"#33a02c"</span>, <span class='st'>"#e31a1c"</span>, <span class='st'>"#ff7f00"</span>, <span class='st'>"#6a3d9a"</span>,</span>
 <span><span class='st'>"#b15928"</span>, <span class='st'>"#a6cee3"</span>, <span class='st'>"#fdbf6f"</span>, <span class='st'>"#ffed6f"</span>, <span class='st'>"#fb9a99"</span>, <span class='st'>"#cab2d6"</span>, <span class='st'>"#8dd3c7"</span><span class='op'>)</span></span>
@@ -1594,7 +1594,7 @@ metres (bcm). A codebook for this dataset is available upon request!</p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>## This is a summary plot for the dependent Total Reliance variable</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># This is a summary plot for the dependent Total Reliance variable</span></span>
 <span></span>
 <span><span class='va'>distinct_colors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#1f78b4"</span>, <span class='st'>"#33a02c"</span>, <span class='st'>"#e31a1c"</span>, <span class='st'>"#ff7f00"</span>, <span class='st'>"#6a3d9a"</span>,</span>
 <span><span class='st'>"#b15928"</span>, <span class='st'>"#a6cee3"</span>, <span class='st'>"#fdbf6f"</span>, <span class='st'>"#ffed6f"</span>, <span class='st'>"#fb9a99"</span><span class='op'>)</span></span>
